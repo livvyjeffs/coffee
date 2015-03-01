@@ -1,5 +1,14 @@
 Shops = new Mongo.Collection("shops");
 
+function getPosition(position) {
+  Session.set('latitude', position.coords.latitude);
+  Session.set('longitude', position.coords.longitude);
+}
+
+
+var allShops = Shops.find();  //eventually limit this to only shops nearby
+
+
 if (Meteor.isClient) {
 
   Meteor.subscribe("shops");
@@ -14,11 +23,6 @@ if (Meteor.isClient) {
     }
 
   });
-
-  function getPosition(position) {
-    Session.set('latitude', position.coords.latitude);
-    Session.set('longitude', position.coords.longitude);
-  }
 
   Template.body.helpers({
     shops: function () {  
@@ -44,6 +48,15 @@ if (Meteor.isClient) {
       position: map.options.center,
       map: map.instance
     });
+
+    allShops.forEach(function (shop) {
+      var latlng = new google.maps.LatLng(shop.latitude, shop.longitude);
+      var shop_marker = new google.maps.Marker({
+        position: latlng,
+        map: map.instance
+      });
+    });
+
   });
 };
 
