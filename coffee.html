@@ -1,0 +1,50 @@
+<head>
+	<title>Coffee Shop Speeds</title>
+</head>
+
+<body>
+	<h1>Welcome to Coffee Shop Speed Comparer!</h1>
+
+	{{> new_shop}}
+
+
+		<div class="map-container">
+			{{> googleMap name="exampleMap" options=exampleMapOptions}}
+		</div>
+
+
+	<table>
+		<tr>
+			<th>Coffee Shop</th>
+			<th>Last Test</th>
+			<th>Speed Up</th>
+			<th>Speed Down</th>
+			<th>Cost of Cappuccino</th>
+		</tr>
+
+		{{#each shops}}
+		{{> shop}}
+		{{/each}}
+	</table>
+
+</body>
+
+<template name="new_shop">
+	<form>
+		<input type="text" class="name" placeholder="Coffee Shop Name?" />
+		<input type="text" class="speed_up" placeholder="Speed Up?" />
+		<input type="text" class="speed_down" placeholder="Speed Down?" />
+		<input type="text" class="cost" placeholder="Cost of Medium Cappuccino?" />
+		<input type="submit" placeholder="Submit" />
+	</form>
+</template>
+
+<template name="shop">
+	<tr>
+		<td>{{name}}</td>
+		<td>{{date}}</td>
+		<td>{{speed_up}} MBps</td>
+		<td>{{speed_down}} MBps</td>
+		<td>{{cost}}Baht</td>
+	</tr>
+</template>
