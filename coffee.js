@@ -24,11 +24,27 @@ if (Meteor.isClient) {
 
   });
 
-  Template.body.helpers({
-    shops: function () {  
-      return Shops.find({}, {sort: {createdAt: -1}});
-    },
-    exampleMapOptions: function() {
+  var DateFormats = {
+    short: "DD MMMM YYYY",
+   long: "dddd DD.MM.YYYY HH:mm"
+ };
+
+ UI.registerHelper("formatDate", function(datetime, format) {
+  if (moment) {
+    // can use other formats like 'lll' too
+    format = DateFormats[format] || format;
+    return moment(datetime).format(format);
+  }
+  else {
+    return datetime;
+  }
+});
+
+ Template.body.helpers({
+  shops: function () {  
+    return Shops.find({}, {sort: {createdAt: -1}});
+  },
+  exampleMapOptions: function() {
     // Make sure the maps API has loaded
     if (GoogleMaps.loaded()) {
       // Map initialization options
@@ -40,7 +56,7 @@ if (Meteor.isClient) {
   }
 });
 
-  Template.body.created = function() {
+ Template.body.created = function() {
   // We can use the `ready` callback to interact with the map API once the map is ready.
   GoogleMaps.ready('exampleMap', function(map) {
     // Add a marker to the map once it's ready
@@ -84,6 +100,7 @@ Template.new_shop.events({
     }
 
   });
+
 }
 
 if (Meteor.isServer) {
