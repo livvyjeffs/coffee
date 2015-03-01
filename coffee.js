@@ -6,7 +6,19 @@ if (Meteor.isClient) {
 
   Meteor.startup(function() {
     GoogleMaps.load();
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(getPosition);
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+
   });
+
+  function getPosition(position) {
+    Session.set('latitude', position.coords.latitude);
+    Session.set('longitude', position.coords.longitude);
+  }
 
   Template.body.helpers({
     shops: function () {  
@@ -17,7 +29,7 @@ if (Meteor.isClient) {
     if (GoogleMaps.loaded()) {
       // Map initialization options
       return {
-        center: new google.maps.LatLng(-37.8136, 144.9631),
+        center: new google.maps.LatLng(Session.get('latitude'), Session.get('longitude')),
         zoom: 12
       };
     }
@@ -43,7 +55,9 @@ Template.new_shop.events({
       date: new Date(),
       speed_up: template.find(".speed_up").value,
       speed_down: template.find(".speed_down").value,
-      cost: template.find(".cost").value
+      cost: template.find(".cost").value,
+      latitude: Session.get('latitude'),
+      longitude: Session.get('longitude')
     });
 
       // Clear form
