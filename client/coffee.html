@@ -11,15 +11,14 @@
 
 </head>
 
-<body>
+<template name="home">
+
 	<div id="container">
 		<h1>Welcome to Coffee Shop Speed Comparer!</h1>
 
 		{{> new_shop}}
 
-		<div class="map-container">
-			{{> googleMap name="exampleMap" options=exampleMapOptions}}
-		</div>
+		{{> map}}
 
 		<table id="shop-table">
 			<thead>
@@ -39,4 +38,4 @@
 
 		</table>
 	</div>
-</body>
+</template>
