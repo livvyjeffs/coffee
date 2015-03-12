@@ -1,6 +1,14 @@
 <head>
 	<title>Coffee Shop Speeds</title>
+
+	<!-- Javascripts -->
 	<script src="http://speedof.me/api/api.js" type="text/javascript"></script>
+
+	<!-- CSS -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
@@ -32,21 +40,3 @@
 		</table>
 	</div>
 </body>
-
-<template name="new_shop">
-	<form id="new_shop">
-		<input type="text" class="name" placeholder="Coffee Shop Name?" />
-		<input type="text" class="cost" placeholder="Cost of Medium Cappuccino?" />
-		<input type="submit" placeholder="Test Your Speed" />
-	</form>
-</template>
-
-<template name="shop">
-	<tr>
-		<td>{{name}}</td>
-		<td>{{formatDate date "short"}}</td>
-		<td>{{speed_up}} MBps</td>
-		<td>{{speed_down}} MBps</td>
-		<td>{{cost}}Baht</td>
-	</tr>
-</template>

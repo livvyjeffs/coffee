@@ -9,3 +9,6 @@ autopublish
 insecure
 dburles:google-maps
 mrt:moment
+natestrauser:font-awesome
+iron:router
+twbs:bootstrap

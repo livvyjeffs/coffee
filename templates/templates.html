@@ -1,0 +1,17 @@
+<template name="new_shop">
+	<form id="new_shop">
+		<input type="text" class="name" placeholder="Coffee Shop Name?" />
+		<input type="text" class="cost" placeholder="Cost of Medium Cappuccino?" />
+		<input type="submit" placeholder="Test Your Speed" />
+	</form>
+</template>
+
+<template name="shop">
+	<tr>
+		<td>{{name}}</td>
+		<td>{{formatDate date "short"}}</td>
+		<td>{{speed_up}} MBps</td>
+		<td>{{speed_down}} MBps</td>
+		<td>{{cost}}Baht</td>
+	</tr>
+</template>

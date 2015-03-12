@@ -1,5 +1,12 @@
 Shops = new Mongo.Collection("shops");
 
+Router.map(function(){
+  this.route('home', {path: '/'});
+  this.route('index',{path: '/theme-test'});
+  this.route('secondaryForm', {path: '/more-info', controller:"MainController"});
+  this.route('confirmation',{controller:"MainController"});
+});
+
 function getPosition(position) {
   Session.set('latitude', position.coords.latitude);
   Session.set('longitude', position.coords.longitude);
