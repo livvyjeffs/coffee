@@ -6,6 +6,9 @@ function getPosition(position) {
 
 Meteor.startup(function() {
 
+  // $(body).addClass('index');
+  // $(body).attr("id","page-top");
+
   GoogleMaps.load();
 
   if (navigator.geolocation) {
@@ -24,7 +27,10 @@ Template.map.helpers({
       // Map initialization options
       return {
         center: new google.maps.LatLng(Session.get('latitude'), Session.get('longitude')),
-        zoom: 18
+        zoom: 18,
+        mapTypeControl: true,
+        navigationControl: true,
+        scrollwheel: false
       };
     }
   }
@@ -39,21 +45,30 @@ Template.map.rendered = function() {
       map: map.instance
     });
 
-    var allShops = ShopList.find();
+  });
+}
 
-    console.log(allShops.fetch())
+Template.shopDocument.rendered = function(){
+
+  console.log('shop rendered')
+
+  var allShops = ShopList.find();
+
+  console.log(allShops.fetch());
+
+  GoogleMaps.ready('exampleMap', function(map) {
 
     allShops.forEach(function (shop) {
 
       console.log(shop.latitude + ' ' + shop.longitude);
-      
+
       var latlng = new google.maps.LatLng(shop.latitude, shop.longitude);
       var shop_marker = new google.maps.Marker({
         position: latlng,
         map: map.instance
       });
-    });
 
+    });
   });
 
-};
+}
