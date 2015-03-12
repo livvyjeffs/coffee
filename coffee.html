@@ -7,9 +7,6 @@
 	<div id="container">
 		<h1>Welcome to Coffee Shop Speed Comparer!</h1>
 
-
-		<button id="btnStart" type="button">Start Test</button>
-
 		{{> new_shop}}
 
 		<div class="map-container">
@@ -29,6 +26,7 @@
 				{{#each shops}}
 				{{> shop}}
 				{{/each}}
+				
 			</tbody>
 
 		</table>
@@ -38,10 +36,8 @@
 <template name="new_shop">
 	<form id="new_shop">
 		<input type="text" class="name" placeholder="Coffee Shop Name?" />
-		<input type="text" class="speed_up" placeholder="Speed Up?" />
-		<input type="text" class="speed_down" placeholder="Speed Down?" />
 		<input type="text" class="cost" placeholder="Cost of Medium Cappuccino?" />
-		<input type="submit" placeholder="Submit" />
+		<input type="submit" placeholder="Test Your Speed" />
 	</form>
 </template>
 

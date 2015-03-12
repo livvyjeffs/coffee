@@ -22,7 +22,22 @@ if (Meteor.isClient) {
       alert("Geolocation is not supported by this browser.");
     }
 
-  });
+    SomApi.account = "SOM5500d2a408181";  //your API Key here
+SomApi.domainName = "bangkok-coffee-shops.meteor.com";  //your domain or sub-domain here 
+SomApi.config.sustainTime = 4; 
+SomApi.onError = function onError(error){
+  console.log(error);
+};
+
+SomApi.config.sustainTime = true;
+SomApi.config.testServerEnabled = true;
+SomApi.config.userInfoEnabled = true;
+SomApi.config.latencyTestEnabled = true;
+SomApi.config.uploadTestEnabled = true;
+SomApi.config.progress.enabled = true;
+SomApi.config.progress.verbose = true;
+
+});
 
   var DateFormats = {
     short: "DD MMMM YYYY",
@@ -56,11 +71,6 @@ if (Meteor.isClient) {
   }
 });
 
-  Template.body.events({
-    'click #btnStart': function(){
-      SomApi.startTest();
-    }
-  });
 
   Template.body.rendered = function() {
   // We can use the `ready` callback to interact with the map API once the map is ready.
@@ -87,20 +97,45 @@ if (Meteor.isClient) {
 Template.new_shop.events({
   "submit form": function (event, template) {
     event.preventDefault();
-    Shops.insert({
-      name: template.find(".name").value,
-      date: new Date(),
-      speed_up: template.find(".speed_up").value,
-      speed_down: template.find(".speed_down").value,
-      cost: template.find(".cost").value,
-      latitude: Session.get('latitude'),
-      longitude: Session.get('longitude')
-    });
+
+    SomApi.startTest();
+
+    var testUp, testDown;
+
+
+    Session.set("name", template.find(".name").value);
+    Session.set("cost", template.find(".cost").value);
+
+    SomApi.onTestCompleted = function onTestCompleted(testResult){
+      // testUp = testResult.upload;
+      // testDown = testResult.download;
+      // Session.set("upload", testResult.upload);
+      // Session.set("download", testResult.download);
+
+      Shops.insert({
+        name: Session.get('name'),
+        date: new Date(),
+        speed_up: testResult.upload,
+        speed_down: testResult.download,
+        cost: Session.get('cost'),
+        latitude: Session.get('latitude'),
+        longitude: Session.get('longitude')
+      });
+
+    }
+
+
+
+    SomApi.onProgress = function onProgress(progress){
+
+      // console.log('current speed: ' + progress.currentSpeed);
+
+    }
 
       // Clear form
       template.find(".name").value = "";
-      template.find(".speed_up").value = "";
-      template.find(".speed_down").value = "";
+      // template.find(".speed_up").value = "";
+      // template.find(".speed_down").value = "";
       template.find(".cost").value = "";
 
       // Prevent default form submit
