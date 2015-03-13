@@ -4,7 +4,23 @@ Meteor.subscribe("shops");
 Template.theme.helpers({
 	shop: function () {  
 		var shops = ShopList.find({}, {sort: {speed_down: -1}});
-		Session.set("allShops",shops);
+		
+		GoogleMaps.ready('exampleMap', function(map) {
+
+			shops.forEach(function (shop) {
+
+				console.log(shop.latitude + ' ' + shop.longitude);
+
+				var latlng = new google.maps.LatLng(shop.latitude, shop.longitude);
+				var shop_marker = new google.maps.Marker({
+					position: latlng,
+					map: map.instance
+				});
+
+			});
+
+		});
+
 		return shops;
 	}
 });
@@ -38,8 +54,8 @@ Template.new_shop.events({
 
 			// });
 
-			template.find(".name").value = "";
-			template.find(".cost").value = "";
+template.find(".name").value = "";
+template.find(".cost").value = "";
 
       		// Prevent default form submit
       		return false;

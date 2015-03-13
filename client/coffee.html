@@ -9,33 +9,6 @@
 	<link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+	<link rel="icon" sizes="16x16 32x32" href="/coffee.png">
+
 </head>
-
-<template name="home">
-
-	<div id="container">
-		<h1>Welcome to Coffee Shop Speed Comparer!</h1>
-
-		{{> new_shop}}
-
-		{{> map}}
-
-		<table id="shop-table">
-			<thead>
-				<th>Coffee Shop</th>
-				<th>Last Test</th>
-				<th>Speed Up</th>
-				<th>Speed Down</th>
-				<th>Cost of Cappuccino</th>
-			</thead>
-			<tbody>
-
-				{{#each shops}}
-				{{> shop}}
-				{{/each}}
-				
-			</tbody>
-
-		</table>
-	</div>
-</template>
