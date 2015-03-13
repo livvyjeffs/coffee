@@ -7,17 +7,20 @@ Template.theme.helpers({
 		
 		GoogleMaps.ready('exampleMap', function(map) {
 
-			shops.forEach(function (shop) {
+			shops.forEach(function (theshop) {
 
-				console.log(shop.latitude + ' ' + shop.longitude);
+				console.log(theshop.latitude + ' ' + theshop.longitude);
 
-				var latlng = new google.maps.LatLng(shop.latitude, shop.longitude);
+				var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
 				var shop_marker = new google.maps.Marker({
 					position: latlng,
 					map: map.instance
 				});
 
 			});
+
+			
+			SomApi.startTest();
 
 		});
 
