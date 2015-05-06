@@ -1,7 +1,7 @@
 
 function getPosition(position) {
-  Session.set('latitude', position.coords.latitude);
-  Session.set('longitude', position.coords.longitude);
+  Session.set('latitude_current', position.coords.latitude);
+  Session.set('longitude_current', position.coords.longitude);
 }
 
 Meteor.startup(function() {
@@ -18,13 +18,33 @@ Meteor.startup(function() {
 
 Template.map.helpers({
   exampleMapOptions: function() {
+
+    if(Session.get('regional')){
+      Session.set('zoom', 11);
+      Session.set('radius',10000);
+      if(Session.get('region')==='beijing'){
+       Session.set('latitude_center',39.903601);
+       Session.set('longitude_center',116.387159);
+
+     }else if(Session.get('region')==='bangkok'){
+       Session.set('latitude_center',13.741943);
+       Session.set('longitude_center',100.548653);
+     }
+     
+   }else{
+    Session.set('zoom',15);
+    Session.set('radius',1000);
+    Session.set('latitude_center',Session.get('latitude_current'));
+    Session.set('longitude_center',Session.get('longitude_current'));
+  }
+
     // Make sure the maps API has loaded
     if (GoogleMaps.loaded()) {
 
       // Map initialization options
       return {
-        center: new google.maps.LatLng(Session.get('latitude'), Session.get('longitude')),
-        zoom: 15,
+        center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
+        zoom: Session.get('zoom'),
         mapTypeControl: true,
         navigationControl: true,
         scrollwheel: false
@@ -55,8 +75,8 @@ Template.map.rendered = function() {
       fillColor: '#FF0000',
       fillOpacity: 0.35,
       map: map.instance,
-      center: map.options.center,
-      radius: 1000
+      center: new google.maps.LatLng(Session.get('latitude_current'), Session.get('longitude_current')),
+      radius: Session.get('radius')
     };
 
     // Add the circle for this city to the map.
