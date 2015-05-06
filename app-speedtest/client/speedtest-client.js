@@ -2,7 +2,7 @@
 Meteor.startup(function(){
 
 	SomApi.account = "SOM5500d2a408181";  //your API Key here
-    SomApi.domainName = "bangkok-coffee-shops.meteor.com";  //your domain or sub-domain here 
+    SomApi.domainName = "coffee-and-wifi.in";  //your domain or sub-domain here 
     SomApi.config.sustainTime = 2; 
 
     SomApi.config.testServerEnabled = true;
@@ -22,7 +22,7 @@ Meteor.startup(function(){
     	Session.set('speedtestResult',testResult);
 
     	$('#speed-progress').text('');
-    	$('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="up"></span> ' + testResult.upload + '<span class="down"></span> Mbps');
+    	$('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
     	$('#speed-add').show();
 
     	var shops = ShopList.find({}, {sort: {speed_down: -1}});

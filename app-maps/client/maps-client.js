@@ -9,6 +9,8 @@ Meteor.startup(function() {
   // $(body).addClass('index');
   // $(body).attr("id","page-top");
 
+  Meteor.call('getIP');
+
   GoogleMaps.load();
 
   if (navigator.geolocation) {
