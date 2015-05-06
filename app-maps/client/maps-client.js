@@ -20,12 +20,13 @@ Template.map.helpers({
   exampleMapOptions: function() {
 
     if(Session.get('regional')){
+
       Session.set('zoom', 11);
       Session.set('radius',10000);
+
       if(Session.get('region')==='beijing'){
        Session.set('latitude_center',39.903601);
        Session.set('longitude_center',116.387159);
-
      }else if(Session.get('region')==='bangkok'){
        Session.set('latitude_center',13.741943);
        Session.set('longitude_center',100.548653);
@@ -63,10 +64,10 @@ Template.map.rendered = function() {
 
     console.log('google maps ready')
     
-    var marker = new google.maps.Marker({
-      position: map.options.center,
-      map: map.instance
-    });
+    // var marker = new google.maps.Marker({
+    //   position: map.options.center,
+    //   map: map.instance
+    // });
 
     var circleOptions = {
       strokeColor: '#FF0000',
