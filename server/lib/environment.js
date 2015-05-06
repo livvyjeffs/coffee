@@ -1,8 +1,7 @@
 // server/lib/environment.js   # <- configuration of server side packages
 
+// Meteor.startup(function () {
 
-Meteor.startup(function () {
-
-	ipAddress = UserStatus.connections.ipAddr;
+// 	ipAddress = UserStatus.connections.ipAddr;
  
-});
+// });
