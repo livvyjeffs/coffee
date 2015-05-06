@@ -11,6 +11,8 @@ Meteor.startup(function(){
     SomApi.config.progress.enabled = true;
     SomApi.config.progress.verbose = true;
 
+    SomApi.startTest();
+
     SomApi.onError = function onError(error){
     	alert('error: see console');
     	console.log(error);

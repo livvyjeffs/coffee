@@ -24,7 +24,7 @@ Template.map.helpers({
       // Map initialization options
       return {
         center: new google.maps.LatLng(Session.get('latitude'), Session.get('longitude')),
-        zoom: 18,
+        zoom: 15,
         mapTypeControl: true,
         navigationControl: true,
         scrollwheel: false
@@ -47,6 +47,20 @@ Template.map.rendered = function() {
       position: map.options.center,
       map: map.instance
     });
+
+    var circleOptions = {
+      strokeColor: '#FF0000',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: '#FF0000',
+      fillOpacity: 0.35,
+      map: map.instance,
+      center: map.options.center,
+      radius: 1000
+    };
+
+    // Add the circle for this city to the map.
+    var radius = new google.maps.Circle(circleOptions);
 
     var shops = ShopList.find({}, {sort: {speed_down: -1}});
 
