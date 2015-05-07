@@ -6,13 +6,21 @@ function getPosition(position) {
 
 Meteor.startup(function() {
 
+  //begin loading GoogleMaps
+
   GoogleMaps.load();
+
+  //get current position
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     alert("Geolocation is not supported by this browser.");
   }
+
+  //pull nearby shops
+
+  shops = ShopList.find({}, {sort: {speed_down: -1}});
 
 });
 
@@ -42,6 +50,8 @@ Template.map.helpers({
     // Make sure the maps API has loaded
     if (GoogleMaps.loaded()) {
 
+      console.log('GoogleMaps loaded from template.map.helpers in maps-client')
+
       // Map initialization options
       return {
         center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
@@ -50,27 +60,19 @@ Template.map.helpers({
         navigationControl: true,
         scrollwheel: false
       };
+    }else{
+      console.log('GoogleMaps NOT loaded from template.mpa.helpers');
     }
   }
 });
 
-Template.map.rendered = function() {
-  // We can use the `ready` callback to interact with the map API once the map is ready.
+Template.body.onCreated(function() {
 
-  console.log('google maps rendered')
-
-
-  console.log(GoogleMaps.loaded())
+  console.log('body created')
 
   GoogleMaps.ready('exampleMap', function(map) {
-    // Add a marker to the map once it's ready
 
-    console.log('google maps ready')
-    
-    // var marker = new google.maps.Marker({
-    //   position: map.options.center,
-    //   map: map.instance
-    // });
+    console.log('google maps ready');
 
     var circleOptions = { 
       strokeColor: '#FF0000',
@@ -86,13 +88,9 @@ Template.map.rendered = function() {
     // Add the circle for this city to the map.
     var radius = new google.maps.Circle(circleOptions);
 
-    var shops = ShopList.find({}, {sort: {speed_down: -1}});
-
-    console.log(shops);
-
     shops.forEach(function (theshop) {
 
-      console.log(theshop.latitude + ' ' + theshop.longitude);
+      console.log(theshop.name + ' ' + theshop.latitude + ' ' + theshop.longitude);
 
       var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
       var shop_marker = new google.maps.Marker({
@@ -102,9 +100,20 @@ Template.map.rendered = function() {
 
     });
 
-    SomApi.startTest();
+    if(!Session.get('SomApi_started')){
+      console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
+      SomApi.startTest();
+    }
 
   });
+});
+Template.map.rendered = function() {
+//on a slow connection this happens first
+
+console.log('maps template rendered')
+
+//often google maps hasn't quite loaded yet
+console.log('Googlemaps ready: ' + GoogleMaps.loaded());
 
 }
 

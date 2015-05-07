@@ -2,33 +2,8 @@ Meteor.subscribe("shops");
 
 Template.shop_table.helpers({
 	shop: function () {  
-
-		// Creates a list of shops sorted by download speed
 		
 		var shops = ShopList.find({}, {sort: {speed_down: -1}});
-
-		// vvvvvvvv PROBLEM HERE vvvvvvvv 
-		// Starts the API Test - unsure whether or not it is ready though
-
-		SomApi.startTest();
-
-		// ^^^^^^^^ PROBLEM HERE ^^^^^^^^
-
-		// When GoogleMaps is ready, it adds each shop to the map as a pin
-		
-		GoogleMaps.ready('exampleMap', function(map) {
-
-			shops.forEach(function (theshop) {
-
-				var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
-				var shop_marker = new google.maps.Marker({
-					position: latlng,
-					map: map.instance
-				});
-
-			});
-
-		});
 
 		return shops;
 	}
@@ -52,8 +27,8 @@ Template.new_shop.events({
 			speed_up: parseFloat(Session.get('speedtestResult').upload),
 			speed_down: parseFloat(Session.get('speedtestResult').download),
 			cost: parseInt(Session.get('cost')),
-			latitude: Session.get('latitude'),
-			longitude: Session.get('longitude')
+			latitude: Session.get('latitude_current'),
+			longitude: Session.get('longitude_current')
 		});
 
 		template.find(".name").value = "";

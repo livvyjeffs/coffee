@@ -11,6 +11,11 @@ Meteor.startup(function(){
     SomApi.config.progress.enabled = true;
     SomApi.config.progress.verbose = true;
 
+    console.log('starting test from Meteor.startup in speedtest-client.js')
+    console.log(SomApi);
+    
+    Session.set('SomApi_started',false);
+
     SomApi.startTest();
 
     SomApi.onError = function onError(error){
@@ -29,6 +34,8 @@ Meteor.startup(function(){
     }
 
     SomApi.onProgress = function onProgress(progress){
+
+        Session.set('SomApi_started',true);
 
     	$('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
 
