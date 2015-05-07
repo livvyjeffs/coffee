@@ -59,6 +59,9 @@ Template.map.rendered = function() {
 
   console.log('google maps rendered')
 
+
+  console.log(GoogleMaps.loaded())
+
   GoogleMaps.ready('exampleMap', function(map) {
     // Add a marker to the map once it's ready
 
@@ -69,7 +72,7 @@ Template.map.rendered = function() {
     //   map: map.instance
     // });
 
-    var circleOptions = {
+    var circleOptions = { 
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
       strokeWeight: 2,
