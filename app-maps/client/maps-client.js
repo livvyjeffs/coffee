@@ -16,10 +16,28 @@ Meteor.startup(function() {
   //begin loading GoogleMaps
   GoogleMaps.load();
 
-  //pull all shops
-  shops = ShopList.find({}, {sort: {speed_down: -1}});
+  // //pull all shops
+  // shops = ShopList.find({}, {sort: {speed_down: -1}}, function(err,docs){
+  //   alert('shops loaded')
+  //   // GoogleMaps.ready('exampleMap', function(map) {
+
+  //   //   docs.forEach(function (theshop) {
+
+  //   //     console.log(theshop.name + ' ' + theshop.latitude + ' ' + theshop.longitude);
+
+  //   //     var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
+  //   //     var shop_marker = new google.maps.Marker({
+  //   //       position: latlng,
+  //   //       map: map.instance
+  //   //     });
+
+  //   //   });
+  //   // });
+  // });
 
 });
+
+
 
 function getPosition(position) {
   Session.set('latitude_current', position.coords.latitude);
@@ -53,7 +71,7 @@ Template.map.helpers({
 Template.map.onCreated(function() {  
   GoogleMaps.ready('exampleMap', function(map) {
 
-    drawMap(map, Session.get('latitude_center'), Session.get('longitude_center'), shops);
+    drawMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
 
 //     google.maps.event.addListener(map.instance, 'click', function(event) {
 //       Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -102,7 +120,9 @@ Template.map.onCreated(function() {
 });
 });
 
-function drawMap(map, lat, lng, shops){
+function drawMap(map, lat, lng){
+
+  var shops = ShopList.find({}, {sort: {speed_down: -1}});
 
   map_draw_count++;
 
@@ -140,10 +160,10 @@ function drawMap(map, lat, lng, shops){
 
     });
 
-    if(!Session.get('SomApi_started')){
-      console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
-      SomApi.startTest();
-    }
+if(!Session.get('SomApi_started')){
+  console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
+  SomApi.startTest();
+}
 
   // });
 }    
