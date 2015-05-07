@@ -1,5 +1,7 @@
 console.log('**file: app-maps/client/maps-client.js loaded');
 
+Markers = new Mongo.Collection('markers'); 
+
 var map_initialized = false;
 
 var timer_counts = {
@@ -9,12 +11,12 @@ var timer_counts = {
 };
 
 // var mapInitializeTimer = setInterval(initializeMap, 500);
-var populateTimer = setInterval(populateMaps, 2000);
-var displayCoordTimer = setInterval(checkDisplayCoords, 500);
+// var populateTimer = setInterval(populateMaps, 2000);
+// var displayCoordTimer = setInterval(checkDisplayCoords, 500);
 
 Meteor.startup(function() {
 
-  //get current position
+  // get current position
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
@@ -33,10 +35,14 @@ Meteor.startup(function() {
 function getPosition(position) {
   Session.set('latitude_current', position.coords.latitude);
   Session.set('longitude_current', position.coords.longitude);
+
   console.log('navigator position: ' + position.coords.latitude + ', ' + position.coords.longitude)
 }
 
 Template.map.helpers({
+  // This is a helper function, so it is a 'reactive composition'
+  // Any time a Session variable inside it changes, the function surrounding it will run again
+  // https://www.discovermeteor.com/blog/reactivity-basics-meteors-magic-demystified/
   exampleMapOptions: function() {
 
     if(GoogleMaps.loaded()){
@@ -45,18 +51,66 @@ Template.map.helpers({
 
       console.log('####### GOOGLE MAPS INITIALIZED at ' + Session.get('latitude_center') + ', ' + Session.get('longitude_center'));
 
-      var center = new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center'));
-
        // Map initialization options
        return {
-        center: center,
+        center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
         zoom: Session.get('zoom'),
-        mapTypeControl: true,
-        navigationControl: true,
+        // mapTypeControl: true,
+        // navigationControl: true,
         scrollwheel: false
       };
     }
   }
+});
+
+Template.map.onCreated(function() {  
+  GoogleMaps.ready('exampleMap', function(map) {
+
+   google.maps.event.addListener(map.instance, 'click', function(event) {
+    Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+  });
+
+   var markers = {};
+
+   Markers.find().observe({  
+    added: function(document) {
+    // Create a marker for this document
+    var marker = new google.maps.Marker({
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: new google.maps.LatLng(document.lat, document.lng),
+      map: map.instance,
+      // We store the document _id on the marker in order 
+      // to update the document within the 'dragend' event below.
+      id: document._id
+    });
+
+    // This listener lets us drag markers on the map and update their corresponding document.
+    google.maps.event.addListener(marker, 'dragend', function(event) {
+      Markers.update(marker.id, { $set: { lat: event.latLng.lat(), lng: event.latLng.lng() }});
+    });
+
+    // Store this marker instance within the markers object.
+    markers[document._id] = marker;
+  },
+  changed: function(newDocument, oldDocument) {
+    markers[newDocument._id].setPosition({ lat: newDocument.lat, lng: newDocument.lng });
+  },
+  removed: function(oldDocument) {
+
+    // Remove the marker from the map
+    markers[oldDocument._id].setMap(null);
+
+    // Clear the event listener
+    google.maps.event.clearInstanceListeners(
+      markers[oldDocument._id]);
+
+    // Remove the reference to this marker instance
+    delete markers[oldDocument._id];
+  }
+});
+
+});
 });
 
 function populateMaps() {
@@ -101,18 +155,18 @@ function setDisplayCoordinates(regional, region){
    }
 
  }else{
-  Session.set('zoom',15);
-  Session.set('radius',1000);
+  // Session.set('zoom',15);
+  // Session.set('radius',1000);
 
-  if(Session.get('latitude_current') === undefined){
-    //if unknown set to Saskatchewan, Canada
-    Session.set('latitude_center',55.707526);
-    Session.set('longitude_center',-105.476872);
-    console.log('current location unknown');
-  }else{
-   Session.set('latitude_center',Session.get('latitude_current'));
-   Session.set('longitude_center',Session.get('longitude_current'));
- }
+ //  if(Session.get('latitude_current') === undefined){
+ //    //if unknown set to Saskatchewan, Canada
+ //    Session.set('latitude_center',55.707526);
+ //    Session.set('longitude_center',-105.476872);
+ //    console.log('current location unknown');
+ //  }else{
+ //   Session.set('latitude_center',Session.get('latitude_current'));
+ //   Session.set('longitude_center',Session.get('longitude_current'));
+ // }
 
  
 }
