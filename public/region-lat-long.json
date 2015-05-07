@@ -1,0 +1,16 @@
+{
+	"countries":{
+		"thailand": {
+			"latitude": 12.223124,
+			"longitude": 100.32434,
+			"currency": "Baht",
+			"language": "thai"
+			},
+			"china": {
+				"latitude": 12.223124,
+				"longitude": 100.32434,
+				"currency": "RMB",
+				"language": "mandarin"
+			}
+		}
+	}

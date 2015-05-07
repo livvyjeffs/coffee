@@ -1,5 +1,7 @@
 console.log('**file: app-speedtest/client/speedtest-client.js loaded');
 
+Session.set('SomApi_started',false);
+
 Meteor.startup(function(){
 
 	SomApi.account = "SOM5500d2a408181";  //your API Key here
@@ -15,8 +17,6 @@ Meteor.startup(function(){
 
     console.log('starting test from Meteor.startup in speedtest-client.js')
     console.log(SomApi);
-    
-    Session.set('SomApi_started',false);
 
     SomApi.startTest();
 

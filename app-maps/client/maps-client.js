@@ -1,6 +1,6 @@
 console.log('**file: app-maps/client/maps-client.js loaded');
 
-Session.set('map_initialized', false);
+var map_initialized = false;
 
 var timer_counts = {
   map_intialize: 0,
@@ -39,7 +39,7 @@ Template.map.helpers({
 
     if(GoogleMaps.loaded()){
 
-      Session.set('map_initialized', true);
+      map_initialized = true;
 
       console.log('####### GOOGLE MAPS INITIALIZED');
 
@@ -66,7 +66,7 @@ Template.map.helpers({
 // }
 
 function populateMaps() {
-  if(Session.get('map_initialized')){
+  if(map_initialized){
     clearInterval(populateTimer);
     drawMap('exampleMap',Session.get('regional'),Session.get('region'));
   }else if(timer_counts.map_populate > 5){
@@ -133,6 +133,8 @@ function drawMap(map){
 
     // Add the circle for this city to the map.
     var radius = new google.maps.Circle(circleOptions);
+
+    console.log(shops);
 
     if(shops===undefined){
       console.log('Warning: shops list is undefined, will pull blank on map');
