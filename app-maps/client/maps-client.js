@@ -14,15 +14,16 @@ var displayCoordTimer = setInterval(checkDisplayCoords, 500);
 
 Meteor.startup(function() {
 
-  //begin loading GoogleMaps
-  GoogleMaps.load();
-
   //get current position
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     alert("Geolocation is not supported by this browser.");
   }
+
+    //begin loading GoogleMaps
+    GoogleMaps.load();
+
 
   //pull nearby shops
   shops = ShopList.find({}, {sort: {speed_down: -1}});
@@ -32,6 +33,7 @@ Meteor.startup(function() {
 function getPosition(position) {
   Session.set('latitude_current', position.coords.latitude);
   Session.set('longitude_current', position.coords.longitude);
+  console.log('navigator position: ' + position.coords.latitude + ', ' + position.coords.longitude)
 }
 
 Template.map.helpers({
@@ -41,11 +43,13 @@ Template.map.helpers({
 
       map_initialized = true;
 
-      console.log('####### GOOGLE MAPS INITIALIZED');
+      console.log('####### GOOGLE MAPS INITIALIZED at ' + Session.get('latitude_center') + ', ' + Session.get('longitude_center'));
+
+      var center = new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center'));
 
        // Map initialization options
        return {
-        center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
+        center: center,
         zoom: Session.get('zoom'),
         mapTypeControl: true,
         navigationControl: true,
@@ -99,8 +103,17 @@ function setDisplayCoordinates(regional, region){
  }else{
   Session.set('zoom',15);
   Session.set('radius',1000);
-  Session.set('latitude_center',Session.get('latitude_current'));
-  Session.set('longitude_center',Session.get('longitude_current'));
+
+  if(Session.get('latitude_current') === undefined){
+   Session.set('latitude_center',25);
+   Session.set('longitude_center',25);
+   console.log('current location unknown');
+ }else{
+   Session.set('latitude_center',Session.get('latitude_current'));
+   Session.set('longitude_center',Session.get('longitude_current'));
+ }
+
+ 
 }
 }
 
