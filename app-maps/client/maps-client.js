@@ -66,14 +66,16 @@ Template.map.helpers({
 Template.map.onCreated(function() {  
   GoogleMaps.ready('exampleMap', function(map) {
 
-   google.maps.event.addListener(map.instance, 'click', function(event) {
-    Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-  });
+    drawMap(map);
 
-   var markers = {};
+    google.maps.event.addListener(map.instance, 'click', function(event) {
+      Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+    });
 
-   Markers.find().observe({  
-    added: function(document) {
+    var markers = {};
+
+    Markers.find().observe({  
+      added: function(document) {
     // Create a marker for this document
     var marker = new google.maps.Marker({
       draggable: true,
@@ -174,7 +176,7 @@ function setDisplayCoordinates(regional, region){
 
 function drawMap(map){
 
-  GoogleMaps.ready(map, function(map) {
+  // GoogleMaps.ready(map, function(map) {
 
     console.log('map ready to be drawn');
 
@@ -215,7 +217,7 @@ function drawMap(map){
       SomApi.startTest();
     }
 
-  });
+  // });
 }    
 
 
