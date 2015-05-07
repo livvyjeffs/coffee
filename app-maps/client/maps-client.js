@@ -2,6 +2,8 @@ console.log('**file: app-maps/client/maps-client.js loaded');
 
 Markers = new Mongo.Collection('markers'); 
 
+var map_draw_count = 0;
+
 Meteor.startup(function() {
 
   // get current position
@@ -11,11 +13,10 @@ Meteor.startup(function() {
     alert("Geolocation is not supported by this browser.");
   }
 
-    //begin loading GoogleMaps
-    GoogleMaps.load();
+  //begin loading GoogleMaps
+  GoogleMaps.load();
 
-
-  //pull nearby shops
+  //pull all shops
   shops = ShopList.find({}, {sort: {speed_down: -1}});
 
 });
@@ -35,7 +36,6 @@ Template.map.helpers({
 
     if(GoogleMaps.loaded()){
 
-
       console.log('####### GOOGLE MAPS INITIALIZED at ' + Session.get('latitude_center') + ', ' + Session.get('longitude_center'));
 
        // Map initialization options
@@ -53,7 +53,7 @@ Template.map.helpers({
 Template.map.onCreated(function() {  
   GoogleMaps.ready('exampleMap', function(map) {
 
-    drawMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+    drawMap(map, Session.get('latitude_center'), Session.get('longitude_center'), shops);
 
 //     google.maps.event.addListener(map.instance, 'click', function(event) {
 //       Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -102,11 +102,14 @@ Template.map.onCreated(function() {
 });
 });
 
-function drawMap(map, lat, lng){
+function drawMap(map, lat, lng, shops){
+
+  map_draw_count++;
+
 
   // GoogleMaps.ready(map, function(map) {
 
-    console.log('map ready to be drawn');
+    console.log(map_draw_count + ': map ready to be drawn');
 
     //hopefully the lat and lngs (which are hooked to session variables in implementation) will keep this reactive
 
@@ -126,11 +129,7 @@ function drawMap(map, lat, lng){
     // Add the circle for this city to the map.
     var radius = new google.maps.Circle(circleOptions);
 
-    console.log(shops);
-
-    if(shops===undefined){
-      console.log('Warning: shops list is undefined, will pull blank on map');
-    }
+    
 
     shops.forEach(function (theshop) {
 
