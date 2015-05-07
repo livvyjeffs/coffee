@@ -18,8 +18,6 @@ Meteor.startup(function(){
     console.log('starting test from Meteor.startup in speedtest-client.js')
     console.log(SomApi);
 
-    SomApi.startTest();
-
     SomApi.onError = function onError(error){
     	alert('error: see console');
     	console.log(error);

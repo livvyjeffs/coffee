@@ -106,7 +106,6 @@ function drawMap(map, lat, lng, shops){
 
   map_draw_count++;
 
-
   // GoogleMaps.ready(map, function(map) {
 
     console.log(map_draw_count + ': map ready to be drawn');
@@ -128,8 +127,6 @@ function drawMap(map, lat, lng, shops){
 
     // Add the circle for this city to the map.
     var radius = new google.maps.Circle(circleOptions);
-
-    
 
     shops.forEach(function (theshop) {
 
