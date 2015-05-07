@@ -1,17 +1,23 @@
+console.log('**file: app-maps/client/maps-client.js loaded');
 
-function getPosition(position) {
-  Session.set('latitude_current', position.coords.latitude);
-  Session.set('longitude_current', position.coords.longitude);
-}
+Session.set('map_initialized', false);
+
+var timer_counts = {
+  map_intialize: 0,
+  map_populate: 0,
+  coordinate: 0,
+};
+
+// var mapInitializeTimer = setInterval(initializeMap, 500);
+var populateTimer = setInterval(populateMaps, 2000);
+var displayCoordTimer = setInterval(checkDisplayCoords, 500);
 
 Meteor.startup(function() {
 
   //begin loading GoogleMaps
-
   GoogleMaps.load();
 
   //get current position
-
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
@@ -19,60 +25,100 @@ Meteor.startup(function() {
   }
 
   //pull nearby shops
-
   shops = ShopList.find({}, {sort: {speed_down: -1}});
 
 });
 
+function getPosition(position) {
+  Session.set('latitude_current', position.coords.latitude);
+  Session.set('longitude_current', position.coords.longitude);
+}
+
 Template.map.helpers({
   exampleMapOptions: function() {
 
-    if(Session.get('regional')){
+    if(GoogleMaps.loaded()){
 
-      Session.set('zoom', 11);
-      Session.set('radius',10000);
+      Session.set('map_initialized', true);
 
-      if(Session.get('region')==='beijing'){
-       Session.set('latitude_center',39.903601);
-       Session.set('longitude_center',116.387159);
-     }else if(Session.get('region')==='bangkok'){
-       Session.set('latitude_center',13.741943);
-       Session.set('longitude_center',100.548653);
-     }
-     
-   }else{
-    Session.set('zoom',15);
-    Session.set('radius',1000);
-    Session.set('latitude_center',Session.get('latitude_current'));
-    Session.set('longitude_center',Session.get('longitude_current'));
-  }
+      console.log('####### GOOGLE MAPS INITIALIZED');
 
-    // Make sure the maps API has loaded
-    if (GoogleMaps.loaded()) {
-
-      console.log('GoogleMaps loaded from template.map.helpers in maps-client')
-
-      // Map initialization options
-      return {
+       // Map initialization options
+       return {
         center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
         zoom: Session.get('zoom'),
         mapTypeControl: true,
         navigationControl: true,
         scrollwheel: false
       };
-    }else{
-      console.log('GoogleMaps NOT loaded from template.mpa.helpers');
     }
   }
 });
 
-Template.body.onCreated(function() {
+// function initializeMap(){
+//   if(GoogleMaps.loaded()){
+//     clearInterval(mapInitializeTimer);
+//     Session.set('map_initialized', true);
 
-  console.log('body created')
+//   }else{
+//     console.log('//////// Map not Initialized TRY AGAIN LATER');
+//   }
+// }
 
-  GoogleMaps.ready('exampleMap', function(map) {
+function populateMaps() {
+  if(Session.get('map_initialized')){
+    clearInterval(populateTimer);
+    drawMap('exampleMap',Session.get('regional'),Session.get('region'));
+  }else if(timer_counts.map_populate > 5){
+    console.log('END: map population timed out');
+    clearInterval(populateTimer);
+  }else{
+    timer_counts.map_populate++;
+    console.log('//////// This map has not been initialized yet.');
+  }
 
-    console.log('google maps ready');
+}
+
+function checkDisplayCoords(){
+  if(Session.get('regional')!==undefined){
+    clearInterval(displayCoordTimer);
+    setDisplayCoordinates(Session.get('regional'), Session.get('region'));
+  }else if(timer_counts.coordinate>5){
+    console.log('END: coordinates timed out');
+    clearInterval(displayCoordTimer);
+  }else{
+    timer_counts.coordinate++;
+    console.log('//////// Regional Coords not Set Try Again in 0.5s');
+  }
+}
+
+function setDisplayCoordinates(regional, region){
+  if(regional){
+
+    Session.set('zoom', 11);
+    Session.set('radius',10000);
+
+    if(region==='beijing'){
+     Session.set('latitude_center',39.903601);
+     Session.set('longitude_center',116.387159);
+   }else if(region==='bangkok'){
+     Session.set('latitude_center',13.741943);
+     Session.set('longitude_center',100.548653);
+   }
+
+ }else{
+  Session.set('zoom',15);
+  Session.set('radius',1000);
+  Session.set('latitude_center',Session.get('latitude_current'));
+  Session.set('longitude_center',Session.get('longitude_current'));
+}
+}
+
+function drawMap(map){
+
+  GoogleMaps.ready(map, function(map) {
+
+    console.log('map ready to be drawn');
 
     var circleOptions = { 
       strokeColor: '#FF0000',
@@ -87,6 +133,10 @@ Template.body.onCreated(function() {
 
     // Add the circle for this city to the map.
     var radius = new google.maps.Circle(circleOptions);
+
+    if(shops===undefined){
+      console.log('Warning: shops list is undefined, will pull blank on map');
+    }
 
     shops.forEach(function (theshop) {
 
@@ -106,14 +156,8 @@ Template.body.onCreated(function() {
     }
 
   });
-});
-Template.map.rendered = function() {
-//on a slow connection this happens first
+}    
 
-console.log('maps template rendered')
 
-//often google maps hasn't quite loaded yet
-console.log('Googlemaps ready: ' + GoogleMaps.loaded());
 
-}
 

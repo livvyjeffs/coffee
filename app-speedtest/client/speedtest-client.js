@@ -1,3 +1,5 @@
+console.log('**file: app-speedtest/client/speedtest-client.js loaded');
+
 Meteor.startup(function(){
 
 	SomApi.account = "SOM5500d2a408181";  //your API Key here
