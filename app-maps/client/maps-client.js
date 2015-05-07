@@ -2,13 +2,13 @@ console.log('**file: app-maps/client/maps-client.js loaded');
 
 Markers = new Mongo.Collection('markers'); 
 
-var map_initialized = false;
+// var map_initialized = false;
 
-var timer_counts = {
-  map_intialize: 0,
-  map_populate: 0,
-  coordinate: 0,
-};
+// var timer_counts = {
+//   map_intialize: 0,
+//   map_populate: 0,
+//   coordinate: 0,
+// };
 
 // var mapInitializeTimer = setInterval(initializeMap, 500);
 // var populateTimer = setInterval(populateMaps, 2000);
@@ -115,64 +115,64 @@ Template.map.onCreated(function() {
 });
 });
 
-function populateMaps() {
-  if(map_initialized){
-    clearInterval(populateTimer);
-    drawMap('exampleMap',Session.get('regional'),Session.get('region'));
-  }else if(timer_counts.map_populate > 5){
-    console.log('END: map population timed out');
-    clearInterval(populateTimer);
-  }else{
-    timer_counts.map_populate++;
-    console.log('//////// This map has not been initialized yet.');
-  }
+// function populateMaps() {
+//   if(map_initialized){
+//     clearInterval(populateTimer);
+//     drawMap('exampleMap',Session.get('regional'),Session.get('region'));
+//   }else if(timer_counts.map_populate > 5){
+//     console.log('END: map population timed out');
+//     clearInterval(populateTimer);
+//   }else{
+//     timer_counts.map_populate++;
+//     console.log('//////// This map has not been initialized yet.');
+//   }
 
-}
+// }
 
-function checkDisplayCoords(){
-  if(Session.get('regional')!==undefined){
-    clearInterval(displayCoordTimer);
-    setDisplayCoordinates(Session.get('regional'), Session.get('region'));
-  }else if(timer_counts.coordinate>5){
-    console.log('END: coordinates timed out');
-    clearInterval(displayCoordTimer);
-  }else{
-    timer_counts.coordinate++;
-    console.log('//////// Regional Coords not Set Try Again in 0.5s');
-  }
-}
+// function checkDisplayCoords(){
+//   if(Session.get('regional')!==undefined){
+//     clearInterval(displayCoordTimer);
+//     setDisplayCoordinates(Session.get('regional'), Session.get('region'));
+//   }else if(timer_counts.coordinate>5){
+//     console.log('END: coordinates timed out');
+//     clearInterval(displayCoordTimer);
+//   }else{
+//     timer_counts.coordinate++;
+//     console.log('//////// Regional Coords not Set Try Again in 0.5s');
+//   }
+// }
 
-function setDisplayCoordinates(regional, region){
-  if(regional){
+// function setDisplayCoordinates(regional, region){
+//   if(regional){
 
-    Session.set('zoom', 11);
-    Session.set('radius',10000);
+//     Session.set('zoom', 11);
+//     Session.set('radius',10000);
 
-    if(region==='beijing'){
-     Session.set('latitude_center',39.903601);
-     Session.set('longitude_center',116.387159);
-   }else if(region==='bangkok'){
-     Session.set('latitude_center',13.741943);
-     Session.set('longitude_center',100.548653);
-   }
+//     if(region==='beijing'){
+//      Session.set('latitude_center',39.903601);
+//      Session.set('longitude_center',116.387159);
+//    }else if(region==='bangkok'){
+//      Session.set('latitude_center',13.741943);
+//      Session.set('longitude_center',100.548653);
+//    }
 
- }else{
-  // Session.set('zoom',15);
-  // Session.set('radius',1000);
+//  }else{
+//   // Session.set('zoom',15);
+//   // Session.set('radius',1000);
 
- //  if(Session.get('latitude_current') === undefined){
- //    //if unknown set to Saskatchewan, Canada
- //    Session.set('latitude_center',55.707526);
- //    Session.set('longitude_center',-105.476872);
- //    console.log('current location unknown');
- //  }else{
- //   Session.set('latitude_center',Session.get('latitude_current'));
- //   Session.set('longitude_center',Session.get('longitude_current'));
- // }
+//  //  if(Session.get('latitude_current') === undefined){
+//  //    //if unknown set to Saskatchewan, Canada
+//  //    Session.set('latitude_center',55.707526);
+//  //    Session.set('longitude_center',-105.476872);
+//  //    console.log('current location unknown');
+//  //  }else{
+//  //   Session.set('latitude_center',Session.get('latitude_current'));
+//  //   Session.set('longitude_center',Session.get('longitude_current'));
+//  // }
 
  
-}
-}
+// }
+// }
 
 function drawMap(map){
 
