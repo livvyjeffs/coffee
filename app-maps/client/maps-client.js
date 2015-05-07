@@ -71,7 +71,9 @@ Template.map.helpers({
 Template.map.onCreated(function() {  
   GoogleMaps.ready('exampleMap', function(map) {
 
-    drawMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+    centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+
+    drawMap(map);
 
 //     google.maps.event.addListener(map.instance, 'click', function(event) {
 //       Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
@@ -120,7 +122,13 @@ Template.map.onCreated(function() {
 });
 });
 
-function drawMap(map, lat, lng){
+function centerMap(map, lat, lng){
+  //hopefully the lat and lngs (which are hooked to session variables in implementation) will keep this reactive
+  map.instance.setCenter(new google.maps.LatLng(lat,lng));
+  console.log('NEW LAT LONG: ' + lat + ', ' + lng);
+}
+
+function drawMap(map){
 
   var shops = ShopList.find({}, {sort: {speed_down: -1}});
 
@@ -129,10 +137,6 @@ function drawMap(map, lat, lng){
   // GoogleMaps.ready(map, function(map) {
 
     console.log(map_draw_count + ': map ready to be drawn');
-
-    //hopefully the lat and lngs (which are hooked to session variables in implementation) will keep this reactive
-
-    map.instance.setCenter(new google.maps.LatLng(lat,lng));
 
     var circleOptions = { 
       strokeColor: '#FF0000',
@@ -160,10 +164,10 @@ function drawMap(map, lat, lng){
 
     });
 
-if(!Session.get('SomApi_started')){
-  console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
-  SomApi.startTest();
-}
+    if(!Session.get('SomApi_started')){
+      console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
+      SomApi.startTest();
+    }
 
   // });
 }    
