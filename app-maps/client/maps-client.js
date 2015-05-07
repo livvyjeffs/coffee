@@ -55,16 +55,6 @@ Template.map.helpers({
   }
 });
 
-// function initializeMap(){
-//   if(GoogleMaps.loaded()){
-//     clearInterval(mapInitializeTimer);
-//     Session.set('map_initialized', true);
-
-//   }else{
-//     console.log('//////// Map not Initialized TRY AGAIN LATER');
-//   }
-// }
-
 function populateMaps() {
   if(map_initialized){
     clearInterval(populateTimer);
