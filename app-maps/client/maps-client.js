@@ -105,10 +105,11 @@ function setDisplayCoordinates(regional, region){
   Session.set('radius',1000);
 
   if(Session.get('latitude_current') === undefined){
-   Session.set('latitude_center',25);
-   Session.set('longitude_center',25);
-   console.log('current location unknown');
- }else{
+    //if unknown set to Saskatchewan, Canada
+    Session.set('latitude_center',55.707526);
+    Session.set('longitude_center',-105.476872);
+    console.log('current location unknown');
+  }else{
    Session.set('latitude_center',Session.get('latitude_current'));
    Session.set('longitude_center',Session.get('longitude_current'));
  }
