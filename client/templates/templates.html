@@ -93,11 +93,16 @@
 <template name="new_shop">
 	<div class="form-container">
 		<form id="new_shop">
-			<input type="text" class="name" placeholder="Coffee Shop Name?" />
-			<input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" />
-			<button type="submit" class="btn btn-success">Add your WiFi Speed</button>
-		</form>
-	</div>
+			<select class="shop_type">
+                <option value="coffee_shop">Coffee Shop</option>  
+                <option value="hotel">Hotel</option>         
+                <option value="personal">Personal</option>  
+            </select>
+            <input type="text" class="name" placeholder="Coffee Shop Name?" />
+            <input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" />
+            <button type="submit" class="btn btn-success">Add your WiFi Speed</button>
+        </form>
+    </div>
 </template>
 
 <template name="shopDocument">
@@ -111,7 +116,7 @@
 </template>
 
 <template name="shop_table">
-    
+
     <table id="shop-table" class="table table-hover">
         <thead>
             <th>Coffee Shop</th>

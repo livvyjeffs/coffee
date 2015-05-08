@@ -22,8 +22,10 @@ event.preventDefault();
 
 Session.set("name", template.find(".name").value);
 Session.set("cost", template.find(".cost").value);
+Session.set("shop_type", template.find("select").value);
 
 ShopList.insert({
+	shop_type: Session.get('shop_type'),
 	name: Session.get('name'),
 	date: new Date(),
 	speed_up: parseFloat(Session.get('speedtestResult').upload),
@@ -38,7 +40,31 @@ template.find(".cost").value = "";
 
 		// Prevent default form submit
 		return false;
+	},
+	"change select": function (event, template){
+		var newValue = $(event.target).val();
+		switch(newValue){
+			case 'hotel':
+			$(template.find(".cost")).show();
+			change_placeholder_text(template.find(".name"),"Hotel Name?");
+			change_placeholder_text(template.find(".cost"),"Cost per Night?");
+			break;
+			case 'personal':
+			change_placeholder_text(template.find(".name"),"What is this place?");
+			$(template.find(".cost")).hide();
+			break;
+			case 'coffee_shop':
+			$(template.find(".cost")).show();
+			change_placeholder_text(template.find(".name"),"Coffee Shop Name?");
+			change_placeholder_text(template.find(".cost"),"Cost per Medium Cappuccino?");
+			break;
+		}
+		
 	}
 
 });
+
+function change_placeholder_text(elem,new_text){
+	$(elem).attr("placeholder", new_text);
+}
 
