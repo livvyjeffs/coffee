@@ -1,9 +1,5 @@
 console.log('**file: app-maps/client/maps-client.js loaded');
 
-Markers = new Mongo.Collection('markers'); 
-
-var map_draw_count = 0;
-
 Meteor.startup(function() {
 
   // get current position
@@ -11,6 +7,7 @@ Meteor.startup(function() {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     alert("Geolocation is not supported by this browser.");
+    //TODO: change them to /bangkok in iron router
   }
 
   //begin loading GoogleMaps
@@ -37,32 +34,60 @@ Meteor.startup(function() {
 
 });
 
-Tracker.autorun(function () {
-  var lat = Session.get('latitude_current');
-  var lng = Session.get('longitude_current');
-  console.log('Autorun is auto-running!' + lat + ', ' + lng);
-  if(GoogleMaps.loaded()){
-    GoogleMaps.ready('exampleMap', function(map) {
-      console.log('Autorun is centering the map')
-      centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
-    });
-  }
-});
+// Tracker.autorun(function () {
+//   var lat = Session.get('latitude_current');
+//   var lng = Session.get('longitude_current');
+//   console.log('Autorun is auto-running!' + lat + ', ' + lng);
+//   if(GoogleMaps.loaded()){
+//     GoogleMaps.ready('exampleMap', function(map) {
+//       console.log('Autorun is centering the map')
+//       centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+//     });
+//   }
+// });
 
+var getPosition_count = 0;
 
 function getPosition(position) {
-  Session.set('latitude_current', position.coords.latitude);
-  Session.set('longitude_current', position.coords.longitude);
+  getPosition_count++;
+  console.log(getPosition_count+': getPosition run');
 
-  console.log('navigator position: ' + position.coords.latitude + ', ' + position.coords.longitude)
+  if(position===undefined){
+    alert('navigator unknown');
+  }else{
+    Session.set('latitude_current', position.coords.latitude);
+    Session.set('longitude_current', position.coords.longitude);
+    setCenter(Session.get('map_type'));
+  }
+
+}
+
+function setCenter(map_type){
+
+  switch(map_type){
+    case 'current_location':
+    Session.set('latitude_center', Session.get('latitude_current'));
+    Session.set('longitude_center', Session.get('longitude_current'));
+    Session.set('setCenter',true); //triggers map render
+    break;
+    case 'regional':
+    //set value to according to json list
+    //for cheats this is done in controller for now
+    break;
+  }
+
 }
 
 Template.map.helpers({
+
   // This is a helper function, so it is a 'reactive computation'
   // Any time a Session variable inside it changes, the function surrounding it will run again
   // https://www.discovermeteor.com/blog/reactivity-basics-meteors-magic-demystified/
-  currentLocation: function(){
-    return !! Session.get('latitude_current')
+
+  setCenter: function(){
+    //in a few days from May 4 GoogleMaps from dburles may have the ability to be reactive. Until then this is the way.
+    //if the center is known, render the map
+    return !! Session.get('setCenter')
   },exampleMapOptions: function() {
 
     if(GoogleMaps.loaded()){
@@ -71,10 +96,11 @@ Template.map.helpers({
 
        // Map initialization options
        return {
+        //when this becomes reactive, any change in 'latitude_center' will change the map center
         center: new google.maps.LatLng(Session.get('latitude_center'), Session.get('longitude_center')),
         zoom: Session.get('zoom'),
-        // mapTypeControl: true,
-        // navigationControl: true,
+        mapTypeControl: true,
+        navigationControl: true,
         scrollwheel: false
       };
     }
@@ -113,13 +139,15 @@ function centerMap(map, lat, lng){
 
   }
 
+var map_draw_count = 0;
+
   function drawMap(map){
 
     map_draw_count++;
 
   // GoogleMaps.ready(map, function(map) {
 
-    console.log(map_draw_count + ': map ready to be drawn');
+    console.log(map_draw_count + ': drawMap');
 
     var shops = ShopList.find({}, {sort: {speed_down: -1}});
 
