@@ -38,6 +38,8 @@ ShopList.insert({
 template.find(".name").value = "";
 template.find(".cost").value = "";
 
+$('#newShopForm').hide();
+
 		// Prevent default form submit
 		return false;
 	},

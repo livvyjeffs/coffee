@@ -154,6 +154,9 @@ function centerMap(map, lat, lng){
 
 Template.map.onCreated(function () {
 
+  // The tutorial link below:
+  // https://www.discovermeteor.com/blog/template-level-subscriptions/
+
   // 1. Initialization
   
   var instance = this;
