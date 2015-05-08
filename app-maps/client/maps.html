@@ -1,7 +1,9 @@
 <template name="map">
 	<div class="map-container">
-		{{#if setCenter}}
-		{{> googleMap name="exampleMap" options=exampleMapOptions}}
+		{{#if isReady}}
+			{{#if setCenter}}
+				{{> googleMap name="exampleMap" options=exampleMapOptions}}
+			{{/if}}
 		{{/if}}
 	</div>
 </template>

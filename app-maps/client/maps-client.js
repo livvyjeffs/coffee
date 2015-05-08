@@ -73,6 +73,18 @@ Template.map.helpers({
         scrollwheel: false
       };
     }
+  },
+  // the posts cursor
+  shops: function () {
+    return Template.instance().shops();
+  },
+  // the subscription handle
+  isReady: function () {
+    return Template.instance().ready.get();
+  },
+  // are there more posts to show?
+  hasMoreShops: function () {
+    return Template.instance().posts().count() >= Template.instance().limit.get();
   }
 });
 
@@ -140,6 +152,45 @@ function centerMap(map, lat, lng){
   // });
 }    
 
+Template.map.onCreated(function () {
 
+  // 1. Initialization
+  
+  var instance = this;
 
+  // initialize the reactive variables
+  instance.loaded = new ReactiveVar(0);
+  instance.limit = new ReactiveVar(5);
+  instance.ready = new ReactiveVar(false);
+  
+  // 2. Autorun
+  
+  // will re-run when the "limit" reactive variables changes
+  this.autorun(function () {
 
+    // get the limit
+    var limit = instance.limit.get();
+
+    console.log("Asking for "+limit+" shops...")
+    
+    // subscribe to the posts publication
+    var subscription = Meteor.subscribe('shops', limit);
+
+    // if subscription is ready, set limit to newLimit
+    if (subscription.ready()) {
+      console.log("> Received "+limit+" shops. \n\n")
+      instance.loaded.set(limit);
+      instance.ready.set(true);
+    } else {
+      instance.ready.set(false);
+      console.log("> Subscription is not ready yet. \n\n");
+    }
+  });
+  
+  // 3. Cursor
+  
+  instance.shops = function() { 
+    return ShopList.find({}, {limit: instance.loaded.get()});
+  }
+  
+});
