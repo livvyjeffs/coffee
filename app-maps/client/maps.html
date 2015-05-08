@@ -1,5 +1,7 @@
 <template name="map">
 	<div class="map-container">
+		{{#if currentLocation}}
 		{{> googleMap name="exampleMap" options=exampleMapOptions}}
+		{{/if}}}}
 	</div>
 </template>

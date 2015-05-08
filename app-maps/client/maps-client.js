@@ -40,20 +40,13 @@ Meteor.startup(function() {
 Tracker.autorun(function () {
   var lat = Session.get('latitude_current');
   var lng = Session.get('longitude_current');
-
-  console.log('Autorun is auto-running!');
-
+  console.log('Autorun is auto-running!' + lat + ', ' + lng);
   if(GoogleMaps.loaded()){
-
     GoogleMaps.ready('exampleMap', function(map) {
-
       console.log('Autorun is centering the map')
-
       centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
-
     });
   }
-
 });
 
 
@@ -68,7 +61,9 @@ Template.map.helpers({
   // This is a helper function, so it is a 'reactive computation'
   // Any time a Session variable inside it changes, the function surrounding it will run again
   // https://www.discovermeteor.com/blog/reactivity-basics-meteors-magic-demystified/
-  exampleMapOptions: function() {
+  currentLocation: function(){
+    return !! Session.get('latitude_current')
+  },exampleMapOptions: function() {
 
     if(GoogleMaps.loaded()){
 
