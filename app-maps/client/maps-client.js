@@ -13,38 +13,7 @@ Meteor.startup(function() {
   //begin loading GoogleMaps
   GoogleMaps.load();
 
-  // //pull all shops
-  // shops = ShopList.find({}, {sort: {speed_down: -1}}, function(err,docs){
-  //   alert('shops loaded')
-  //   // GoogleMaps.ready('exampleMap', function(map) {
-
-  //   //   docs.forEach(function (theshop) {
-
-  //   //     console.log(theshop.name + ' ' + theshop.latitude + ' ' + theshop.longitude);
-
-  //   //     var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
-  //   //     var shop_marker = new google.maps.Marker({
-  //   //       position: latlng,
-  //   //       map: map.instance
-  //   //     });
-
-  //   //   });
-  //   // });
-  // });
-
 });
-
-// Tracker.autorun(function () {
-//   var lat = Session.get('latitude_current');
-//   var lng = Session.get('longitude_current');
-//   console.log('Autorun is auto-running!' + lat + ', ' + lng);
-//   if(GoogleMaps.loaded()){
-//     GoogleMaps.ready('exampleMap', function(map) {
-//       console.log('Autorun is centering the map')
-//       centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
-//     });
-//   }
-// });
 
 var getPosition_count = 0;
 
@@ -118,10 +87,10 @@ Template.map.onCreated(function() {
 });
 
 function centerMap(map, lat, lng){
-  console.log('centering map at ' + lat + ', ' + lng);
+  // console.log('centering map at ' + lat + ', ' + lng);
   //hopefully the lat and lngs (which are hooked to session variables in implementation) will keep this reactive
-  map.instance.setCenter(new google.maps.LatLng(lat,lng));
-  console.log('NEW LAT LONG: ' + lat + ', ' + lng);
+  // map.instance.setCenter(new google.maps.LatLng(lat,lng));
+  // console.log('NEW LAT LONG: ' + lat + ', ' + lng);
 
   var circleOptions = { 
     strokeColor: '#FF0000',
@@ -139,7 +108,7 @@ function centerMap(map, lat, lng){
 
   }
 
-var map_draw_count = 0;
+  var map_draw_count = 0;
 
   function drawMap(map){
 
@@ -153,7 +122,7 @@ var map_draw_count = 0;
 
     shops.forEach(function (theshop) {
 
-      console.log(theshop.name + ' ' + theshop.latitude + ' ' + theshop.longitude);
+      // console.log(theshop.name + ' ' + theshop.latitude + ' ' + theshop.longitude);
 
       var latlng = new google.maps.LatLng(theshop.latitude, theshop.longitude);
       var shop_marker = new google.maps.Marker({
