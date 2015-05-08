@@ -15,6 +15,8 @@ Meteor.startup(function(){
     SomApi.config.progress.enabled = true;
     SomApi.config.progress.verbose = true;
 
+    //TODO - test at what time I should start the SomApi
+    //WARNING - Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check http://xhr.spec.whatwg.org/.
     // SomApi.startTest();
 
     console.log('starting test from Meteor.startup in speedtest-client.js')

@@ -11,7 +11,6 @@ Template.shop_table.helpers({
 	}
 });
 
-
 Template.new_shop.events({
 
 	"click button": function (event, template) {
