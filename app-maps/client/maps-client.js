@@ -37,6 +37,24 @@ Meteor.startup(function() {
 
 });
 
+Tracker.autorun(function () {
+  var lat = Session.get('latitude_current');
+  var lng = Session.get('longitude_current');
+
+  console.log('Autorun is auto-running!');
+
+  if(GoogleMaps.loaded()){
+
+    GoogleMaps.ready('exampleMap', function(map) {
+
+      console.log('Autorun is centering the map')
+
+      centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+
+    });
+  }
+
+});
 
 
 function getPosition(position) {
@@ -79,6 +97,7 @@ Template.map.onCreated(function() {
 });
 
 function centerMap(map, lat, lng){
+  console.log('centering map at ' + lat + ', ' + lng);
   //hopefully the lat and lngs (which are hooked to session variables in implementation) will keep this reactive
   map.instance.setCenter(new google.maps.LatLng(lat,lng));
   console.log('NEW LAT LONG: ' + lat + ', ' + lng);
