@@ -115,20 +115,13 @@
 		<td>{{formatDate date "short"}}</td>
 		<td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
 		<td>{{cost}} {{currency}}</td>
-        <td>
-            {{#if currentUser}}
-                {{hours}}
-            {{else}}
-                "n/a"
-            {{/if}}
-        </td>
-        <td>
-            {{#if currentUser}}
-                {{aircon}}
-            {{else}}
-                "n/a"
-            {{/if}}
-        </td>
+        {{#if currentUser}}
+            <td>{{hours}}</td>
+            <td>{{aircon}}</td>
+        {{else}}
+            <td class="subscribe"></td>
+            <td class="subscribe"></td>
+        {{/if}}
     </tr>
 </template>
 

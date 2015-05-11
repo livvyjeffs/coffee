@@ -5,7 +5,7 @@ Meteor.subscribe("shops");
 Template.shop_table.helpers({
 	shop: function () {  
 		
-		var shops = ShopList.find({shop_type: coffee_shop}, {sort: {speed_down: -1}});
+		var shops = ShopList.find({shop_type: "coffee_shop"}, {sort: {speed_down: -1}});
 
 		return shops;
 	}
