@@ -76,7 +76,17 @@ $('#newShopForm').hide();
 
 });
 
+Template.shopDocument.events({
+	"click .subscribe": function(event, template){
+		$("#myModal").modal('show');
+	}
+});
+
 function change_placeholder_text(elem,new_text){
 	$(elem).attr("placeholder", new_text);
 }
+
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
 
