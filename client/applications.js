@@ -5,7 +5,7 @@ Meteor.subscribe("shops");
 Template.shop_table.helpers({
 	shop: function () {  
 		
-		var shops = ShopList.find({}, {sort: {speed_down: -1}});
+		var shops = ShopList.find({shop_type: coffee_shop}, {sort: {speed_down: -1}});
 
 		return shops;
 	}
@@ -22,6 +22,10 @@ event.preventDefault();
 Session.set("name", template.find(".name").value);
 Session.set("cost", template.find(".cost").value);
 Session.set("shop_type", template.find("select").value);
+Session.set("aircon", template.find(".aircon").value);
+Session.set("vpn", template.find(".vpn").value);
+Session.set("hours", template.find(".hours").value);
+Session.set("currency", template.find(".currency").value);
 
 ShopList.insert({
 	shop_type: Session.get('shop_type'),
@@ -31,11 +35,18 @@ ShopList.insert({
 	speed_down: parseFloat(Session.get('speedtestResult').download),
 	cost: parseInt(Session.get('cost')),
 	latitude: Session.get('latitude_current'),
-	longitude: Session.get('longitude_current')
+	longitude: Session.get('longitude_current'),
+	hours: Session.get('hours'),
+	vpn: Session.get('vpn'),
+	aircon: Session.get('aircon'),
+	user: Meteor.userId()
 });
 
 template.find(".name").value = "";
 template.find(".cost").value = "";
+template.find(".aircon").value = "";
+template.find(".vpn").value = "";
+template.find(".hours").value = "";
 
 $('#newShopForm').hide();
 

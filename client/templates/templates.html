@@ -100,6 +100,10 @@
             </select>
             <input type="text" class="name" placeholder="Coffee Shop Name?" />
             <input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" />
+            <input type="text" class="currency" placeholder="Currency" />
+            <input type="checkbox" class="vpn" placeholder="" />Using a VPN?
+            <input type="text" class="hours" placeholder="Hours of Operation?" />
+            <input type="checkbox" class="aircon" placeholder="" />Air Conditioning?
             <button type="submit" class="btn btn-success">Add your WiFi Speed</button>
         </form>
     </div>
@@ -109,10 +113,23 @@
 	<tr>
 		<td>{{name}}</td>
 		<td>{{formatDate date "short"}}</td>
-		<td>{{speed_up}} MBps</td>
-		<td>{{speed_down}} MBps</td>
-		<td>{{cost}} Baht</td>
-	</tr>
+		<td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
+		<td>{{cost}} {{currency}}</td>
+        <td>
+            {{#if currentUser}}
+                {{hours}}
+            {{else}}
+                "n/a"
+            {{/if}}
+        </td>
+        <td>
+            {{#if currentUser}}
+                {{aircon}}
+            {{else}}
+                "n/a"
+            {{/if}}
+        </td>
+    </tr>
 </template>
 
 <template name="shop_table">
@@ -121,9 +138,10 @@
         <thead>
             <th>Coffee Shop</th>
             <th>Last Test</th>
-            <th>Speed Up</th>
             <th>Speed Down</th>
-            <th>Cost of a Cappuccino</th>
+            <th>Cost of a Medium Cappuccino</th>
+            <th>Open Hours</th>
+            <th>Air Conditioning</th>
         </thead>
         <tbody>
 

@@ -4,8 +4,10 @@ Session.set('SomApi_started',false);
 
 Meteor.startup(function(){
 
-	SomApi.account = "SOM5500d2a408181";  //your API Key here
-    SomApi.domainName = "coffee-and-wifi.in";  //your domain or sub-domain here 
+	// SomApi.account = "SOM5500d2a408181";  //your API Key here //coffee-and-wifi.in
+    SomApi.account = "SOM55503fa398470"; //coffeeandwifi.in
+    // SomApi.domainName = "coffee-and-wifi.in";  //your domain or sub-domain here 
+    SomApi.domainName = "coffeeandwifi.in";
     SomApi.config.sustainTime = 2; 
 
     SomApi.config.testServerEnabled = true;
