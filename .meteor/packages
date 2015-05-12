@@ -22,3 +22,9 @@ fortawesome:fontawesome
 coffeescript
 houston:admin
 accounts-ui-unstyled
+accounts-facebook
+accounts-github
+accounts-google
+accounts-twitter
+accounts-weibo
+service-configuration

@@ -2,6 +2,8 @@ console.log('**file: client/application.js loaded');
 
 Meteor.subscribe("shops");
 
+Meteor.subscribe("userData");
+
 Template.shop_table.helpers({
 	shop: function () {  
 		
@@ -78,7 +80,7 @@ $('#newShopForm').hide();
 
 Template.shopDocument.events({
 	"click .subscribe": function(event, template){
-		$("#myModal").modal('show');
+		$("#subscribeModal").modal('show');
 	}
 });
 
@@ -87,6 +89,6 @@ function change_placeholder_text(elem,new_text){
 }
 
 Accounts.ui.config({
-  passwordSignupFields: "USERNAME_ONLY"
+	passwordSignupFields: "USERNAME_ONLY"
 });
 

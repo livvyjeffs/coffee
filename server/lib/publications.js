@@ -10,4 +10,3 @@ console.log('**file: server/lib/publications.js loaded');
 Meteor.publish('shops',function(){
 	return ShopList.find();
 });
-

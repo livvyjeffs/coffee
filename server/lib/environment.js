@@ -3,5 +3,14 @@
 // Meteor.startup(function () {
 
 // 	ipAddress = UserStatus.connections.ipAddr;
- 
+
 // });
+
+// server
+Meteor.publish("userData", function () {
+  // if (this.userId) {
+    return Meteor.users.find();
+  // } else {
+  //   this.ready();
+  // }
+});
