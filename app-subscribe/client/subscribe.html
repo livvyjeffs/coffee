@@ -7,8 +7,14 @@
 					<h4 class="modal-title">Confirmation</h4>
 				</div>
 				<div class="modal-body">
-					You need to sign up for a monthly subscription to view these datasets.
-					{{> loginButtons}}
+
+				{{#if currentUser}}
+					{{currentUser.profile.name}}, you need to purchase datasets.
+					
+				{{else}}
+					You need to sign up and purchase datasets.
+				{{/if}}
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

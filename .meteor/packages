@@ -21,7 +21,7 @@ alanning:roles
 fortawesome:fontawesome
 coffeescript
 houston:admin
-accounts-ui-unstyled
+accounts-ui
 accounts-facebook
 accounts-github
 accounts-google

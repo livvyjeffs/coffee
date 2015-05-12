@@ -1,18 +1,3 @@
-console.log('**file: client/application.js loaded');
-
-Meteor.subscribe("shops");
-
-Meteor.subscribe("userData");
-
-Template.shop_table.helpers({
-	shop: function () {  
-		
-		var shops = ShopList.find({shop_type: "coffee_shop"}, {sort: {speed_down: -1}});
-
-		return shops;
-	}
-});
-
 Template.new_shop.events({
 
 	"click button": function (event, template) {
@@ -77,18 +62,3 @@ $('#newShopForm').hide();
 	}
 
 });
-
-Template.shopDocument.events({
-	"click .subscribe": function(event, template){
-		$("#subscribeModal").modal('show');
-	}
-});
-
-function change_placeholder_text(elem,new_text){
-	$(elem).attr("placeholder", new_text);
-}
-
-Accounts.ui.config({
-	passwordSignupFields: "USERNAME_ONLY"
-});
-
