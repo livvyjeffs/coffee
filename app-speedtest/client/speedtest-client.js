@@ -52,6 +52,6 @@ Meteor.startup(function(){
 Template.speedtest.events({
 	'click #speed-add': function(event){
 		event.preventDefault();
-		$('#newShopForm').toggle();
+		$('#addNewShop').modal('show');
 	}
 });

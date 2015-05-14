@@ -1,22 +1,11 @@
 
 console.log('**file: app-subscribe/client/subscribe-client.js loaded');
 
-function getPosition(position) {
-  getPosition_count++;
-  console.log(getPosition_count+': getPosition run');
-
-  if(position===undefined){
-    alert('navigator unknown');
-  }else{
-    Session.set('latitude_current', position.coords.latitude);
-    Session.set('longitude_current', position.coords.longitude);
-    setCenter(Session.get('map_type'));
-  }
-
-}
-
 
 Template.subscribe.helpers({
 
+// Session.get("desired_dataset")
+
+//TODO - how do I add attributes to a user? Like has or hasn't paid for a certain subscription? How many times has contributed?
 
 });

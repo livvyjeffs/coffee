@@ -1,6 +1,25 @@
 Template.new_shop.events({
 
-	"click button": function (event, template) {
+	"change select": function (event, template){
+		var newValue = $(event.target).val();
+		switch(newValue){
+			case 'hotel':
+			$(template.find(".cost")).show();
+			change_placeholder_text(template.find(".name"),"Hotel Name?");
+			change_placeholder_text(template.find(".cost"),"Cost per Night?");
+			break;
+			case 'personal':
+			change_placeholder_text(template.find(".name"),"What is this place?");
+			$(template.find(".cost")).hide();
+			break;
+			case 'coffee_shop':
+			$(template.find(".cost")).show();
+			change_placeholder_text(template.find(".name"),"Coffee Shop Name?");
+			change_placeholder_text(template.find(".cost"),"Cost per Medium Cappuccino?");
+			break;
+		}
+		
+	},"click button": function (event, template) {
 
 // When the "add" button is clicked, a new coffee shop is added
 
@@ -39,26 +58,17 @@ $('#newShopForm').hide();
 
 		// Prevent default form submit
 		return false;
-	},
-	"change select": function (event, template){
-		var newValue = $(event.target).val();
-		switch(newValue){
-			case 'hotel':
-			$(template.find(".cost")).show();
-			change_placeholder_text(template.find(".name"),"Hotel Name?");
-			change_placeholder_text(template.find(".cost"),"Cost per Night?");
-			break;
-			case 'personal':
-			change_placeholder_text(template.find(".name"),"What is this place?");
-			$(template.find(".cost")).hide();
-			break;
-			case 'coffee_shop':
-			$(template.find(".cost")).show();
-			change_placeholder_text(template.find(".name"),"Coffee Shop Name?");
-			change_placeholder_text(template.find(".cost"),"Cost per Medium Cappuccino?");
-			break;
-		}
-		
 	}
+	
+
+});
+
+function change_placeholder_text(elem,new_text){
+	$(elem).attr("placeholder", new_text);
+}
+
+UI.registerHelper("add_shop_input", function(input_type, data_type, placeholder, options) {
+
+	//TODO - use jquery to create documents
 
 });

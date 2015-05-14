@@ -8,11 +8,28 @@
 				</div>
 				<div class="modal-body">
 
+				<!-- Roles:
+
+					1) Not registered
+
+					2) Registered (keeps track of contributions, 5 contributions/mo gets you a free dataset)
+
+					3) Registered and Purchased Datasets
+
+					4) Admin -->
+
 				{{#if currentUser}}
-					{{currentUser.profile.name}}, you need to purchase datasets.
+
+				<!-- If not paid for a dataset -->
+				<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
+				<!-- //TODO - if they contribute 5 times a month, one free dataset -->
+				
+					{{currentUser.username}}, you need to purchase datasets.
 					
 				{{else}}
+
 					You need to sign up and purchase datasets.
+					
 				{{/if}}
 
 				</div>

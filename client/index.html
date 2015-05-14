@@ -34,8 +34,8 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 				<ul class="nav navbar-nav navbar-right">
-						
-						<li class="hidden">
+
+					<li class="hidden">
 						<a href="#page-top"></a>
 					</li>
 					<li></li>
@@ -51,22 +51,13 @@
 		<!-- /.container-fluid -->
 	</nav>
 
-
-	<section id="newShopForm">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					{{> new_shop}}
-				</div>
-			</div>
-		</div>
-	</section>
-
+	<!-- //TODO - why is this a header? -->
 	<!-- Header -->
 	<header> 
 		{{> map}}
 	</header>
 
+	<!-- //TODO - give this a height limitation -->
 	<!-- Portfolio Grid Section -->
 	<section id="table">
 		<div class="container">
@@ -93,6 +84,8 @@
 		</div>
 	</footer>
 
+	<!-- Modal Windows -->
+	{{> new_shop}}
 	{{> subscribe}}
 
 </body>
