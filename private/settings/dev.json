@@ -1,0 +1,11 @@
+// taken from meteor-starter
+//TODO - learn how to use json files in meteor
+
+{
+    "serviceConfigurations": {
+        "facebook": {
+            "appId": "1636544673231390",
+            "secret": "5cb029c8ecdbf549ec25dc0df14f0f4a"
+        }
+    }
+}
