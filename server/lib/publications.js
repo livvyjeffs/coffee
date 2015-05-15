@@ -7,6 +7,7 @@ console.log('**file: server/lib/publications.js loaded');
 //when you are ready...
 //https://www.discovermeteor.com/blog/understanding-meteor-publications-and-subscriptions/
 
+
 Meteor.publish('shops',function(){
 	return ShopList.find();
 });
