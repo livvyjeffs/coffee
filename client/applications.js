@@ -32,6 +32,28 @@ Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
 });
 
+kAdminConfig = {
+    name: 'Your Admin',
+    collections: {
+        "Meteor.users": { 
+            verbose: "Users",
+            templates: { 
+                "crud": { name: 'kAccountsAdminFluid' },
+                "new": { name: 'yourCustomAdminCreateModule' }
+            } 
+        },
+    }
+}
+
+kAccountsAdminConfig = {
+    tableColumns: [
+        { label: 'Name', name: 'getName()' },
+        { label: 'Roles', name: 'getRoles()' },
+        { label: 'Account Type', name: 'getAccountType()' },
+        { label: 'Email', name: 'getEmail()' },
+    ]
+}
+
 // Date Formatting for shop_documents
 
 var DateFormats = {
