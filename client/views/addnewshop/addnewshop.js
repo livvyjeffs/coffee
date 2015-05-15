@@ -11,6 +11,7 @@ Template.new_shop.events({
 			case 'personal':
 			change_placeholder_text(template.find(".name"),"What is this place?");
 			$(template.find(".cost")).hide();
+			$(template.find(".currency")).hide();
 			break;
 			case 'coffee_shop':
 			$(template.find(".cost")).show();
@@ -42,6 +43,7 @@ ShopList.insert({
 	cost: parseInt(Session.get('cost')),
 	latitude: Session.get('latitude_current'),
 	longitude: Session.get('longitude_current'),
+	currency: Session.get('currency'),
 	hours: Session.get('hours'),
 	vpn: Session.get('vpn'),
 	aircon: Session.get('aircon'),
@@ -50,11 +52,12 @@ ShopList.insert({
 
 template.find(".name").value = "";
 template.find(".cost").value = "";
+template.find(".currency").value = "";
 template.find(".aircon").value = "";
 template.find(".vpn").value = "";
 template.find(".hours").value = "";
 
-$('#newShopForm').hide();
+$('#addNewShop').modal('hide');	
 
 		// Prevent default form submit
 		return false;
