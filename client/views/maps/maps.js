@@ -144,11 +144,6 @@ function centerMap(map, lat, lng){
 
     });
 
-    if(!Session.get('SomApi_started')){
-      console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
-      SomApi.startTest();
-    }
-
   // });
 }    
 

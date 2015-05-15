@@ -1,9 +1,12 @@
 <template name="speedtest">
-
 	<div>
-		<div id="speed-progress"></div>
-		<div id="speed-down"></div>
-		<div id="speed-up"></div>
+		<button id="test-your-speed" class="btn btn-success" type="submit">Test your WiFi Speed</button>
+		<div id="speed-progress">
+			<span class="progress-percent"></span>% and current speed: <span class="progress-speed"></span> Mbps
+		</div>
+		<div id="your-speed">
+			Your WiFi is <span class="down-speed"></span><span class="down-icon"></span> and <span class="up-speed"></span><span class="up-icon"></span> Mbps
+		</div>
 		<button id="speed-add" class="btn btn-success" type="submit">Add your WiFi Speed</button>
 	</div>
 

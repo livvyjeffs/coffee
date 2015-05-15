@@ -89,3 +89,45 @@
 	{{> subscribe}}
 
 </body>
+
+
+<template name="shopDocument">
+	<tr>
+		<td>{{name}}</td>
+		<td>{{formatDate date "short"}}</td>
+		<td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
+		<td>{{cost}} {{currency}}</td>
+		{{#if currentUser}}
+		<td>{{hours}}</td>
+		<td>{{aircon}}</td>
+		{{else}}
+		<td class="subscribe" data_type="hours"></td>
+		<td class="subscribe" data_type="aircon"></td>
+		{{/if}}
+	</tr>
+</template>
+
+<template name="shop_table">
+
+	<table id="shop-table" class="table table-hover">
+		<thead>
+			<th>Coffee Shop</th>
+			<th>Last Test</th>
+			<th>Speed Down</th>
+			<th>Cost of a Medium Cappuccino</th>
+			<th>Open Hours</th>
+			<th>Air Conditioning</th>
+		</thead>
+		<tbody>
+
+			{{#each shop}}
+			{{> shopDocument}}
+			{{/each}}
+
+		</tbody>
+
+	</table>
+
+</template>
+
+

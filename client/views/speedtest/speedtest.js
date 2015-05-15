@@ -20,9 +20,13 @@ Meteor.startup(function(){
     //TODO - test at what time I should start the SomApi
     //WARNING - Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check http://xhr.spec.whatwg.org/.
     // SomApi.startTest();
+    // console.log('starting test from Meteor.startup in speedtest-client.js')
+    // console.log(SomApi);
 
-    console.log('starting test from Meteor.startup in speedtest-client.js')
-    console.log(SomApi);
+    // if(!Session.get('SomApi_started')){
+    //   console.log('starting SomApi from inside GoogleMaps.ready in maps-client.js')
+    //   SomApi.startTest();
+    // }
 
     SomApi.onError = function onError(error){
     	alert('error: see console');
@@ -31,27 +35,40 @@ Meteor.startup(function(){
 
     SomApi.onTestCompleted = function onTestCompleted(testResult){
 
-    	Session.set('speedtestResult',testResult);
+        $('#test-your-speed').hide();
+        $('#speed-progress').hide();
+        $('#your-speed').show();
 
-    	$('#speed-progress').text('');
-    	$('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
-    	$('#speed-add').show();
+        Session.set('speedtestResult',testResult);
+
+        $('#your-speed .down-speed').text(testResult.download);
+        $('#your-speed .up-speed').text(testResult.upload);
+
+        $('#speed-add').show();
 
     }
 
     SomApi.onProgress = function onProgress(progress){
 
+        $('#test-your-speed').hide();
+        $('#speed-add').hide();
+        $('#speed-progress').show();
+
         Session.set('SomApi_started',true);
 
-    	$('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
-
+        $('#speed-progress .progress-percent').text(progress.percentDone);
+        $('#speed-progress .progress-speed').text(progress.currentSpeed);
     }
 
 });
 
 Template.speedtest.events({
-	'click #speed-add': function(event){
-		event.preventDefault();
-		$('#addNewShop').modal('show');
-	}
+    'click #test-your-speed': function(event){
+        console.log('starting SomApi from button click')
+        SomApi.startTest();
+    },
+    'click #speed-add': function(event){
+      event.preventDefault();
+      $('#addNewShop').modal('show');
+  }
 });

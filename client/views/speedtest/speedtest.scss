@@ -1,0 +1,39 @@
+
+#test-your-speed{
+
+}
+
+#speed-progress{
+	display: none;
+}
+
+#your-speed{
+	display: none;
+
+	.up-icon{
+		background-image: url('img/up.png');
+	}
+
+	.down-icon{
+		background-image: url('img/down.jpeg');
+	}
+
+	.up-icon, .down-icon{
+		vertical-align: middle;
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+
+}
+
+#speed-add{
+	display: none;
+}
+
+
+
+
