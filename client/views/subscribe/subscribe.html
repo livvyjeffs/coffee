@@ -18,24 +18,53 @@
 
 					4) Admin -->
 
-				{{#if currentUser}}
+					<div class="status">
 
-				<!-- If not paid for a dataset -->
-				<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
-				<!-- //TODO - if they contribute 5 times a month, one free dataset -->
-				
-					{{currentUser.username}}, you need to purchase datasets.
-					
-				{{else}}
+						{{#if currentUser}}
 
-					You need to sign up and purchase datasets.
-					
-				{{/if}}
+						<!-- If not paid for a dataset -->
+						<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
+						<!-- //TODO - if they contribute 5 times a month, one free dataset -->
+
+							{{#if isInRole 'subscribed'}}
+								You are all paid!
+							{{else}} 
+								{{currentUser.username}}, you need to purchase datasets.
+							{{/if}}
+
+						{{else}}
+
+							You need to sign up and purchase datasets.
+						
+						{{/if}}
+					</div>
 
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					{{#if currentUser}}
+
+						<!-- If not paid for a dataset -->
+						<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
+						<!-- //TODO - if they contribute 5 times a month, one free dataset -->
+
+						{{#if isInRole 'subscribed'}}
+
+						<!-- Nothing needs to be done here -->
+							
+						{{else}} 
+							
+						<button type="button" class="btn btn-primary purchase">Buy the Dataset</button>
+
+						{{/if}}
+
+					{{else}}
+
+						{{> loginButtons}}
+					
+					{{/if}}
+
+					
 				</div>
 			</div>
 		</div>

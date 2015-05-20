@@ -27,6 +27,7 @@ accounts-google
 accounts-twitter
 accounts-weibo
 service-configuration
-kaoskeya:meteor-accounts-autoform-admin
 kaoskeya:admin
 aldeed:autoform
+houston:admin
+kaoskeya:accounts-autoform-admin

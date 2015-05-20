@@ -2,6 +2,8 @@ console.log('**file: client/application.js loaded');
 
 Meteor.subscribe("shops");
 
+Meteor.subscribe('theUsers');
+
 Template.shop_table.helpers({
 	shop: function () { 
 
@@ -32,28 +34,6 @@ Accounts.ui.config({
 	passwordSignupFields: "USERNAME_ONLY"
 });
 
-kAdminConfig = {
-    name: 'Your Admin',
-    collections: {
-        "Meteor.users": { 
-            verbose: "Users",
-            templates: { 
-                "crud": { name: 'kAccountsAdminFluid' },
-                "new": { name: 'yourCustomAdminCreateModule' }
-            } 
-        },
-    }
-}
-
-kAccountsAdminConfig = {
-    tableColumns: [
-        { label: 'Name', name: 'getName()' },
-        { label: 'Roles', name: 'getRoles()' },
-        { label: 'Account Type', name: 'getAccountType()' },
-        { label: 'Email', name: 'getEmail()' },
-    ]
-}
-
 // Date Formatting for shop_documents
 
 var DateFormats = {
@@ -71,4 +51,3 @@ UI.registerHelper("formatDate", function(datetime, format) {
 		return datetime;
 	}
 });
-
