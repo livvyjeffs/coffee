@@ -1,3 +1,5 @@
+//https://gentlenode.com/journal/meteor-20-verify-an-email-with-meteor-accounts/42
+
 Meteor.startup(function () {
   smtp = {
     username: 'jeffers.olivia@gmail.com',   // eg: server@gentlenode.com
