@@ -20,7 +20,6 @@ accounts-password
 alanning:roles
 fortawesome:fontawesome
 coffeescript
-accounts-ui
 accounts-facebook
 accounts-github
 accounts-google
