@@ -26,15 +26,15 @@
 						<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
 						<!-- //TODO - if they contribute 5 times a month, one free dataset -->
 
-							{{#if isInRole 'subscribed'}}
-								You are all paid!
-							{{else}} 
-								{{currentUser.username}}, you need to purchase datasets.
-							{{/if}}
+						{{#if isInRole 'subscribed'}}
+						You are all paid!
+						{{else}} 
+						{{currentUser.username}}, you need to purchase datasets.
+						{{/if}}
 
 						{{else}}
 
-							You need to sign up and purchase datasets.
+						You need to sign up and purchase datasets.
 						
 						{{/if}}
 					</div>
@@ -44,27 +44,32 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					{{#if currentUser}}
 
-						<!-- If not paid for a dataset -->
-						<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
-						<!-- //TODO - if they contribute 5 times a month, one free dataset -->
+					<!-- If not paid for a dataset -->
+					<!-- //TODO - find a way to figure out which dataset they are trying to purchase -->
+					<!-- //TODO - if they contribute 5 times a month, one free dataset -->
 
-						{{#if isInRole 'subscribed'}}
+					{{#if isInRole 'subscribed'}}
 
-						<!-- Nothing needs to be done here -->
-							
-						{{else}} 
-							
-						<button type="button" class="btn btn-primary purchase">Buy the Dataset</button>
+					<!-- Nothing needs to be done here -->
 
-						{{/if}}
+					{{else}} 
+
+					<form>
+						{{> stripeEasyInputs}}
+						<button type="submit">Submit</button>
+					</form>
+
+					<!-- <button type="button" class="btn btn-primary purchase">Buy the Dataset</button> -->
+
+					{{/if}}
 
 					{{else}}
 
-						{{> loginButtons}}
-					
+					{{> loginButtons}}
+
 					{{/if}}
 
-					
+
 				</div>
 			</div>
 		</div>

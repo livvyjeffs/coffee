@@ -34,7 +34,7 @@ Template.subscribe.events({
 		// 	amount: 1000,
 		// 	currency: "USD",
 		// 	card: {
-		// 		number: "4242424242424242",
+		// 		number: "4424242424242422",
 		// 		exp_month: "03",
 		// 		exp_year: "2014"
 		// 	}
@@ -42,9 +42,25 @@ Template.subscribe.events({
 		// 	console.log(err, res);
 		// });
 
-		Meteor.call('addSubscription', Meteor.userId(), ['subscribed'], function() {
-			console.log(Meteor.user().username + ' is now subscribed');
-		});
+		// Meteor.call('addSubscription', Meteor.userId(), ['subscribed'], function() {
+		// 	console.log(Meteor.user().username + ' is now subscribed');
+		// });
 
+},
+'submit form': function (e) {
+		e.preventDefault();
+	  // make sure there is a Meteor.user() or wrap the following inside the Meteor.createUser callback function
+	  var easy = StripeEasy.submitHelper(e);
+	  var plan_id = "monthly"; // set however you want, via Session variable or a part of the form.
+	  StripeEasy.subscribe(easy, plan_id, function(err, result){
+	  	if(err){
+	  		console.log(err)
+	      Session.set('stripeEasyError', err); // show error to user
+	  }else{
+	  	console.log('paymet success!')
+	  	console.log(result);
+	  }
+	    // if no error, will return the newly created customer object from Stripe
+	});
 	}
 });

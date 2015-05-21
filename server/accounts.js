@@ -1,6 +1,14 @@
 Accounts.onCreateUser(function(options, user) {
-	console.log('NEW USER CREATED' + user.username);
+
+	user.profile = {};
+
 	// user.role = "registered";
 	Roles.addUsersToRoles(user, ['standard']);
-	return user;
-});
+
+	  // we wait for Meteor to create the user before sending an email
+	  Meteor.setTimeout(function() {
+	  	Accounts.sendVerificationEmail(user._id);
+	  }, 2 * 1000);
+
+	  return user;
+	});	
