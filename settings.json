@@ -2,7 +2,8 @@
   "public" : {
     "Stripe" : {
       "publicKey" : "pk_test_KI822GZD6zYVQkGbZVkjw132"
-    }
+    },
+    "houston_root_route" : "houston-admin"
   },
   "Stripe" : {
     "secretKey" : "sk_test_c174bb9naM8ixyev177azVpx"

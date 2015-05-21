@@ -13,3 +13,7 @@ Accounts.onCreateUser(function(options, user) {
 
 	  return user;
 	});	
+
+
+Houston.add_collection(Meteor.users);
+Houston.add_collection(Houston._admins);
