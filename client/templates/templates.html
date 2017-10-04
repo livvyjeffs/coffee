@@ -22,96 +22,96 @@
                     </li>
                     <li>
                         <!-- <a href="#" class="page-scroll"> -->
-                        {{> speedtest}}
-                        <!-- </a> -->
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
-
-    <section id="newShopForm">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    {{> new_shop}}
+                            {{> speedtest}}
+                            <!-- </a> -->
+                        </li>
+                    </ul>
                 </div>
+                <!-- /.navbar-collapse -->
             </div>
-        </div>
-    </section>
+            <!-- /.container-fluid -->
+        </nav>
 
-    <!-- Header -->
-    <header> 
-        {{> map}}
-    </header>
 
-    <!-- Portfolio Grid Section -->
-    <section id="table">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <table id="shop-table" class="table table-hover">
-                        <thead>
-                            <th>Coffee Shop</th>
-                            <th>Last Test</th>
-                            <th>Speed Up</th>
-                            <th>Speed Down</th>
-                            <th>Cost of a Cappuccino</th>
-                        </thead>
-                        <tbody>
-
-                            {{#each shop}}
-                            {{> shops}}
-                            {{/each}}
-
-                        </tbody>
-
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-below">
+        <section id="newShopForm">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        Made by Olivia Jeffers
+                        {{> new_shop}}
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </section>
 
-</template>
+        <!-- Header -->
+        <header> 
+            {{> map}}
+        </header>
 
-<template name="shops">
-    {{#each shops}}                     
-	<tr>
-		<td>{{name}}</td>
-		<td>{{formatDate date "short"}}</td>
-		<td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
-		<td>{{cost}} {{currency}}</td>
-        <!-- {{#if currentUser}} -->
-            <!-- <td>{{hours}}</td> -->
-        <td>{{aircon}}</td>
+        <!-- Portfolio Grid Section -->
+        <section id="table">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <table id="shop-table" class="table table-hover">
+                            <thead>
+                                <th>Coffee Shop</th>
+                                <th>Last Test</th>
+                                <th>Speed Up</th>
+                                <th>Speed Down</th>
+                                <th>Cost of a Cappuccino</th>
+                            </thead>
+                            <tbody>
+
+                                {{#each shop}}
+                                {{> shops}}
+                                {{/each}}
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center">
+            <div class="footer-below">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Made by Olivia Jeffers
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </template>
+
+    <template name="shops">
+        {{#each shops}}                     
+        <tr>
+          <td>{{name}}</td>
+          <td>{{formatDate date "short"}}</td>
+          <td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
+          <td>{{cost}} {{currency}}</td>
+          <!-- {{#if currentUser}} -->
+          <!-- <td>{{hours}}</td> -->
+          <td>{{aircon}}</td>
         <!-- {{else}}
             <td class="subscribe"></td>
             <td class="subscribe"></td>
-        {{/if}} -->
-    </tr>
-    {{/each}}
-</template>
+            {{/if}} -->
+        </tr>
+        {{/each}}
+    </template>
 
-<template name="shop_table">
+    <template name="shop_table">
 
- <!-- Portfolio Grid Section -->
-    <section id="table">
+       <!-- Portfolio Grid Section -->
+       <section id="table">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

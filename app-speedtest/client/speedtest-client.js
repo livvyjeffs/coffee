@@ -27,32 +27,32 @@ Meteor.startup(function(){
 
     SomApi.onError = function onError(error){
     	// alert('SpeedTest Error: see console');
-    	  console.log(error);
-          Session.set('speedtestUp',888);
-          Session.set('speedtestDown',999);
-    };
+     console.log(error);
+     Session.set('speedtestUp',888);
+     Session.set('speedtestDown',999);
+ };
 
-    SomApi.onTestCompleted = function onTestCompleted(testResult){
+ SomApi.onTestCompleted = function onTestCompleted(testResult){
 
-        console.log(testResult)
+    console.log(testResult)
 
-    	Session.set('speedtestResult',testResult);
-        Session.set('speedtestUp',testResult.upload);
-        Session.set('speedtestDown',testResult.download);
+    Session.set('speedtestResult',testResult);
+    Session.set('speedtestUp',testResult.upload);
+    Session.set('speedtestDown',testResult.download);
 
-    	$('#speed-progress').text('');
-    	$('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
-    	$('#speed-add').show();
+    $('#speed-progress').text('');
+    $('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
+    $('#speed-add').show();
 
-    }
+}
 
-    SomApi.onProgress = function onProgress(progress){
+SomApi.onProgress = function onProgress(progress){
 
-        Session.set('SomApi_started',true);
+    Session.set('SomApi_started',true);
 
         // console.log(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps')
 
-    	$('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
+        $('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
 
     }
 
