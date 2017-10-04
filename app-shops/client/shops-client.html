@@ -1,0 +1,13 @@
+<!-- Uses Blaze formatting and handlebars -->
+
+<template name="shops">
+  {{#each shops}}                     
+  <tr>
+    <td>{{name}}</td>
+    <td>{{formatDate date "short"}}</td>
+    <td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
+    <td>{{cost}} {{currency}}</td>
+    <td>{{aircon}}</td>
+  </tr>
+  {{/each}}
+</template>

@@ -1,3 +1,5 @@
+<!-- Deprecated File -->
+
 <template name="theme">
 
     <!-- Navigation -->
@@ -88,24 +90,6 @@
             </div>
         </footer>
 
-    </template>
-
-    <template name="shops">
-        {{#each shops}}                     
-        <tr>
-          <td>{{name}}</td>
-          <td>{{formatDate date "short"}}</td>
-          <td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
-          <td>{{cost}} {{currency}}</td>
-          <!-- {{#if currentUser}} -->
-          <!-- <td>{{hours}}</td> -->
-          <td>{{aircon}}</td>
-        <!-- {{else}}
-            <td class="subscribe"></td>
-            <td class="subscribe"></td>
-            {{/if}} -->
-        </tr>
-        {{/each}}
     </template>
 
     <template name="shop_table">
