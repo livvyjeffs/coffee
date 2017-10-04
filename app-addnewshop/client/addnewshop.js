@@ -5,35 +5,37 @@ Template.new_shop.events({
 // When the "add" button is clicked, a new coffee shop is added
 
 event.preventDefault();
+console.log('adding new shop...')
 
 Session.set("name", template.find(".name").value);
 Session.set("cost", template.find(".cost").value);
-Session.set("shop_type", template.find("select").value);
+// Session.set("shop_type", template.find("select").value);
 Session.set("aircon", template.find(".aircon").value);
 Session.set("vpn", template.find(".vpn").value);
-Session.set("hours", template.find(".hours").value);
+// Session.set("hours", template.find(".hours").value);
 Session.set("currency", template.find(".currency").value);
 
+
 ShopList.insert({
-	shop_type: Session.get('shop_type'),
+	// shop_type: Session.get('shop_type'),
 	name: Session.get('name'),
 	date: new Date(),
-	speed_up: parseFloat(Session.get('speedtestResult').upload),
-	speed_down: parseFloat(Session.get('speedtestResult').download),
-	cost: parseInt(Session.get('cost')),
+	speed_up: parseFloat(Session.get('speedtestUp')),
+	speed_down: parseFloat(Session.get('speedtestDown')),
+	cost: parseFloat(Session.get('cost')),
 	latitude: Session.get('latitude_current'),
 	longitude: Session.get('longitude_current'),
-	hours: Session.get('hours'),
+	// hours: Session.get('hours'),
 	vpn: Session.get('vpn'),
-	aircon: Session.get('aircon'),
-	user: Meteor.userId()
+	aircon: Session.get('aircon')
+	// user: Meteor.userId()
 });
 
 template.find(".name").value = "";
 template.find(".cost").value = "";
 template.find(".aircon").value = "";
 template.find(".vpn").value = "";
-template.find(".hours").value = "";
+// template.find(".hours").value = "";
 
 $('#newShopForm').hide();
 

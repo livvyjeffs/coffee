@@ -2,6 +2,10 @@ console.log('**file: app-maps/client/maps-client.js loaded');
 
 Meteor.startup(function() {
 
+  //default positions
+    Session.set('latitude_current', 38.9178065);
+    Session.set('longitude_current', -77.16792219999999);
+
   // get current position
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
@@ -21,13 +25,16 @@ function getPosition(position) {
   getPosition_count++;
   console.log(getPosition_count+': getPosition run');
 
-  if(position===undefined){
-    alert('navigator unknown');
+  console.log(position.coords)
+
+  if(position.coords.latitude===undefined){
+    alert('unable to access location');
   }else{
     Session.set('latitude_current', position.coords.latitude);
     Session.set('longitude_current', position.coords.longitude);
-    setCenter(Session.get('map_type'));
   }
+
+  setCenter(Session.get('map_type'));
 
 }
 
