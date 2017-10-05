@@ -1,18 +1,35 @@
 <template name="new_shop">
-	<div class="form-container">
-		<form id="new_shop">
-			<!-- <select class="shop_type">
-                <option value="coffee_shop">Coffee Shop</option>  
-                <option value="hotel">Hotel</option>         
-                <option value="personal">Personal</option>  
-            </select> -->
-            <input type="text" class="name" placeholder="Coffee Shop Name?" />
-            <input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" />
-            <input type="text" class="currency" placeholder="Currency" />
-            <input type="checkbox" class="vpn" placeholder="" />Using a VPN?
-            <!-- <input type="text" class="hours" placeholder="Hours of Operation?" /> -->
-            <input type="checkbox" class="aircon" placeholder="" />Air Conditioning?
-            <button type="submit" class="btn btn-success">Add your WiFi Speed</button>
-        </form>
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Your WiFi is {{speed_down}}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id="new_shop">
+                        <!-- <select class="shop_type">
+                            <option value="coffee_shop">Coffee Shop</option>  
+                            <option value="hotel">Hotel</option>         
+                            <option value="personal">Personal</option>  
+                        </select> -->
+                        <div><input type="text" class="name" placeholder="Coffee Shop Name?" /></div>
+                        
+                        <div><input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" /></div>
+                        <div><input type="text" class="currency" placeholder="Currency" /></div>
+                        <div><input type="checkbox" class="vpn" placeholder="" />Using a VPN?</div>
+                        <!-- <input type="text" class="hours" placeholder="Hours of Operation?" /> -->
+                        <div><input type="checkbox" class="aircon" placeholder="" />Air Conditioning?</div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Add your WiFi Speed</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 </template>

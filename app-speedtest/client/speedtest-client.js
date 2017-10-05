@@ -60,6 +60,6 @@ SomApi.onProgress = function onProgress(progress){
 Template.speedtest.events({
 	'click #speed-add': function(event){
 		event.preventDefault();
-		$('#newShopForm').toggle();
+		Modal.show('new_shop');
 	}
 });
