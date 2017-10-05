@@ -1,6 +1,6 @@
 Template.new_shop.events({
 
-	"click button": function (event, template) {
+	"click .btn-success": function (event, template) {
 
 	// When the "add" button is clicked, a new coffee shop is added
 
@@ -37,7 +37,7 @@ Template.new_shop.events({
 	template.find(".vpn").value = "";
 	// template.find(".hours").value = "";
 
-	$('#newShopForm').hide();
+	Modal.hide('new_shop');
 
 		// Prevent default form submit
 		return false;
