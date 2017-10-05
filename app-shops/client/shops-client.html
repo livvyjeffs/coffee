@@ -7,7 +7,7 @@
     <td>{{formatDate date "short"}}</td>
     <td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
     <td>{{cost}} {{currency}}</td>
-    <td>{{aircon}}</td>
+    <td>{{#if aircon}}yes{{/if}}</td>
   </tr>
   {{/each}}
 </template>

@@ -29,6 +29,7 @@ Meteor.startup(function(){
      console.log(error);
      // Session.set('speedtestUp',888);
      // Session.set('speedtestDown',999);
+     $('#speed-add').text("Whoops, looks like SpeedTest isn't working...");
  };
 
  SomApi.onTestCompleted = function onTestCompleted(testResult){
@@ -41,7 +42,7 @@ Meteor.startup(function(){
 
     $('#speed-progress').text('');
     $('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
-    $('#speed-add').show();
+    $('#speed-add').text("Add your WiFi speed");
 
 }
 
@@ -52,6 +53,8 @@ SomApi.onProgress = function onProgress(progress){
         // console.log(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps')
 
         $('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
+        $('#speed-add').text("Testing your WiFi...");
+        $('#speed-add').prop('disabled', false);
 
     }
 

@@ -10,12 +10,25 @@ Template.new_shop.events({
 	Session.set("name", template.find(".name").value);
 	Session.set("cost", template.find(".cost").value);
 	Session.set("shop_type", template.find("select").value);
-	Session.set("aircon", template.find(".aircon").value);
-	Session.set("vpn", template.find(".vpn").value);
 	Session.set("hours", template.find(".hours").value);
 	Session.set("currency", template.find(".currency").value);
-	Session.set("wifirestrict", template.find(".wifirestrict").value);
 
+	Session.set("aircon", false);
+	Session.set("vpn", false);
+	Session.set("wifirestrict", false);
+
+	if ($('.vpn').is(':checked')) {
+		Session.set("vpn", true);
+	}
+
+	if ($('.aircon').is(':checked')) {
+		Session.set("aircon", true);
+
+	}
+
+	if ($('.wifirestrict').is(':checked')) {
+		Session.set("wifirestrict", true);
+	}
 
 	ShopList.insert({
 		shop_type: Session.get('shop_type'),
