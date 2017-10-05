@@ -69,11 +69,11 @@ Template.new_shop.events({
 			case 'personal':
 			$('.name').attr("placeholder","What is this place?");
 			$(template.find(".cost")).hide();
+			$(template.find(".hours")).hide();
 			$(template.find(".currency")).hide();
 			break;
 			case 'coffee_shop':
 			$(template.find(".cost")).show();
-			$(template.find(".hours")).hide();
 			$('.name').attr("placeholder","Coffee Shop Name?");
 			$('.cost').attr("placeholder","Cost per Medium Cappuccino?");
 			break;

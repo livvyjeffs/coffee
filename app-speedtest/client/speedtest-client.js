@@ -42,6 +42,7 @@ Meteor.startup(function(){
 
     $('#speed-progress').text('');
     $('#speed-down').html('Your WiFi is ' + testResult.download + '<span class="down"></span> ' + testResult.upload + '<span class="up"></span> Mbps');
+    $('#speed-add').prop('disabled', false);
     $('#speed-add').text("Add your WiFi speed");
 
 }
@@ -54,7 +55,6 @@ SomApi.onProgress = function onProgress(progress){
 
         $('#speed-progress').text(progress.percentDone + '% and current speed: ' + progress.currentSpeed + 'Mbps');
         $('#speed-add').text("Testing your WiFi...");
-        $('#speed-add').prop('disabled', false);
 
     }
 
