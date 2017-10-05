@@ -60,6 +60,7 @@ Template.new_shop.events({
 			break;
 			case 'coffee_shop':
 			$(template.find(".cost")).show();
+			$(template.find(".hours")).hide();
 			$('.name').attr("placeholder","Coffee Shop Name?");
 			$('.cost').attr("placeholder","Cost per Medium Cappuccino?");
 			break;
