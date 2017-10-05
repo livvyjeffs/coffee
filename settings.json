@@ -3,5 +3,10 @@
      "env": {
        "MONGO_URL": "mongodb://user:user@ds161584.mlab.com:61584/coffeeandwifi"
      }
-   }
+   },
+    "public": {
+        "ga": {
+            "id": "UA-107560736-1"
+        }
+    }
 }
