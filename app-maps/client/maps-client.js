@@ -2,20 +2,22 @@ console.log('**file: app-maps/client/maps-client.js loaded');
 
 Meteor.startup(function() {
 
-  //default positions
-    Session.set('latitude_current', 38.9178065);
-    Session.set('longitude_current', -77.16792219999999);
+  //   default positions
+  //   Session.set('latitude_current', 38.9178065);
+  //   Session.set('longitude_current', -77.16792219999999);
 
-  // get current position
+  //begin loading GoogleMaps
+  GoogleMaps.load({
+    key: 'AIzaSyA7B1nxBvb_HoEQqe7lb2EXqRvUzQvpbQM'
+  });
+
   if (navigator.geolocation) {
+    console.log('// ' + 'on Meteor.startup(), getting position');
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     alert("Geolocation is not supported by this browser.");
-    //TODO: change them to /bangkok in iron router
   }
 
-  //begin loading GoogleMaps
-  GoogleMaps.load();
 
 });
 
@@ -63,6 +65,8 @@ Template.map.helpers({
   setCenter: function(){
     //in a few days from May 4 GoogleMaps from dburles may have the ability to be reactive. Until then this is the way.
     //if the center is known, render the map
+    console.log('Template.map.helpers({setCenter');
+    console.log(!! Session.get('setCenter'));
     return !! Session.get('setCenter')
   },exampleMapOptions: function() {
 
@@ -98,11 +102,11 @@ Template.map.helpers({
 Template.map.onCreated(function() {  
   GoogleMaps.ready('exampleMap', function(map) {
 
-    drawMap(map);
-    
-    centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+      drawMap(map);
 
-  });
+      centerMap(map, Session.get('latitude_center'), Session.get('longitude_center'));
+
+    });
 });
 
 function centerMap(map, lat, lng){

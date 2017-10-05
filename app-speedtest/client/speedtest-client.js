@@ -20,16 +20,15 @@ Meteor.startup(function(){
     //TODO - test at what time I should start the SomApi
     //WARNING - Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check http://xhr.spec.whatwg.org/.
     
-    SomApi.startTest();
-
-    console.log('starting test from Meteor.startup in speedtest-client.js')
-    console.log(SomApi);
+    // SomApi.startTest();
+    // console.log('starting test from Meteor.startup in speedtest-client.js')
+    // console.log(SomApi);
 
     SomApi.onError = function onError(error){
     	// alert('SpeedTest Error: see console');
      console.log(error);
-     Session.set('speedtestUp',888);
-     Session.set('speedtestDown',999);
+     // Session.set('speedtestUp',888);
+     // Session.set('speedtestDown',999);
  };
 
  SomApi.onTestCompleted = function onTestCompleted(testResult){
