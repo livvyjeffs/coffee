@@ -9,15 +9,16 @@ Template.new_shop.events({
 
 	Session.set("name", template.find(".name").value);
 	Session.set("cost", template.find(".cost").value);
-	// Session.set("shop_type", template.find("select").value);
+	Session.set("shop_type", template.find("select").value);
 	Session.set("aircon", template.find(".aircon").value);
 	Session.set("vpn", template.find(".vpn").value);
-	// Session.set("hours", template.find(".hours").value);
+	Session.set("hours", template.find(".hours").value);
 	Session.set("currency", template.find(".currency").value);
+	Session.set("wifirestrict", template.find(".wifirestrict").value);
 
 
 	ShopList.insert({
-		// shop_type: Session.get('shop_type'),
+		shop_type: Session.get('shop_type'),
 		name: Session.get('name'),
 		date: new Date(),
 		speed_up: parseFloat(Session.get('speedtestUp')),
@@ -25,9 +26,10 @@ Template.new_shop.events({
 		cost: parseFloat(Session.get('cost')),
 		latitude: Session.get('latitude_current'),
 		longitude: Session.get('longitude_current'),
-		// hours: Session.get('hours'),
+		hours: Session.get('hours'),
 		vpn: Session.get('vpn'),
-		aircon: Session.get('aircon')
+		aircon: Session.get('aircon'),
+		wifirestrict: Session.get('wifirestrict')
 		// user: Meteor.userId()
 	});
 
@@ -35,7 +37,8 @@ Template.new_shop.events({
 	template.find(".cost").value = "";
 	template.find(".aircon").value = "";
 	template.find(".vpn").value = "";
-	// template.find(".hours").value = "";
+	template.find(".wifirestrict").value = "";
+	template.find(".hours").value = "";
 
 	Modal.hide('new_shop');
 
@@ -47,17 +50,18 @@ Template.new_shop.events({
 		switch(newValue){
 			case 'hotel':
 			$(template.find(".cost")).show();
-			change_placeholder_text(template.find(".name"),"Hotel Name?");
-			change_placeholder_text(template.find(".cost"),"Cost per Night?");
+			$('.name').attr("placeholder","Hotel Name?");
+			$('.cost').attr("placeholder","Cost per Night?");
 			break;
 			case 'personal':
-			change_placeholder_text(template.find(".name"),"What is this place?");
+			$('.name').attr("placeholder","What is this place?");
 			$(template.find(".cost")).hide();
+			$(template.find(".currency")).hide();
 			break;
 			case 'coffee_shop':
 			$(template.find(".cost")).show();
-			change_placeholder_text(template.find(".name"),"Coffee Shop Name?");
-			change_placeholder_text(template.find(".cost"),"Cost per Medium Cappuccino?");
+			$('.name').attr("placeholder","Coffee Shop Name?");
+			$('.cost').attr("placeholder","Cost per Medium Cappuccino?");
 			break;
 		}
 		

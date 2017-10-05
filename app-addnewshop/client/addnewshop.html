@@ -4,25 +4,23 @@
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Your WiFi is {{speed_down}}</h4>
+                    <h4 class="modal-title">Your WiFi is {{speed_down}} MBps down:</h4>
                 </div>
                 <form id="new_shop_form">
 
                     <div class="modal-body">
-
-                        <!-- <select class="shop_type">
+                        <select class="shop_type">
                             <option value="coffee_shop">Coffee Shop</option>  
                             <option value="hotel">Hotel</option>         
                             <option value="personal">Personal</option>  
-                        </select> -->
-                        <div><input type="text" class="name" placeholder="Coffee Shop Name?" /></div>
-                        
+                        </select>
+                        <div><input type="text" class="name" placeholder="Coffee Shop Name?" /></div>     
                         <div><input type="text" class="cost" placeholder="Cost of a Medium Cappuccino?" /></div>
                         <div><input type="text" class="currency" placeholder="Currency" /></div>
+                        <input type="text" class="hours" placeholder="Hours of Operation?" />
                         <div><input type="checkbox" class="vpn" placeholder="" />Using a VPN?</div>
-                        <!-- <input type="text" class="hours" placeholder="Hours of Operation?" /> -->
                         <div><input type="checkbox" class="aircon" placeholder="" />Air Conditioning?</div>
-
+                        <div><input type="checkbox" class="wifirestrict" placeholder="" />Unrestricted WiFi?</div>
                     </div>
 
                     <div class="modal-footer">
