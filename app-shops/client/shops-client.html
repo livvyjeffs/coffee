@@ -3,10 +3,10 @@
 <template name="shops">
   {{#each shops}}                     
   <tr>
-    <td>{{name}}</td>
+    <td>{{name}} {{#if equals shop_type 'hotel'}} ({{shop_type}}){{/if}}</td>
     <td>{{formatDate date "short"}}</td>
     <td>{{speed_down}} MBps {{#if vpn}} (vpn) {{/if}}</td>
-    <td>{{cost}} {{currency}}</td>
+    <td>{{cost}} {{currency}} {{#if equals shop_type 'hotel'}}per night{{/if}}</td>
     <td>{{#if aircon}}yes{{/if}}</td>
   </tr>
   {{/each}}

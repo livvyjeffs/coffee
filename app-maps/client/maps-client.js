@@ -141,7 +141,13 @@ function centerMap(map, lat, lng){
 
     console.log(map_draw_count + ': drawMap');
 
-    var shops = ShopList.find({}, {sort: {speed_down: -1}});
+    var shops = ShopList.find({
+      "$or": [{
+        "shop_type": "coffee_shop"
+      }, {
+        "shop_type": "hotel"
+      }]
+    }, {sort: {speed_down: -1}});
 
     shops.forEach(function (theshop) {
 

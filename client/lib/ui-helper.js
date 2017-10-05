@@ -13,3 +13,7 @@ UI.registerHelper("formatDate", function(datetime, format) {
 		return datetime;
 	}
 });
+
+Template.registerHelper('equals', function (a, b) {
+	return a === b;
+});
